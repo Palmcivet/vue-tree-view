@@ -1,0 +1,147 @@
+<template>
+  <li>
+    <div class="file" v-if="isFile" @click.stop="openFile()">
+      <div
+        class="indent"
+        v-for="i in treeDeepth - 1"
+        :class="showIndent ? 'indent-show' : ''"
+        :key="i"
+      ></div>
+      <pre class="icon"></pre>
+      <pre class="space"></pre>
+      <i class="ri-file-line"></i>
+      <pre class="space"></pre>
+      {{ itemData.name }}
+    </div>
+
+    <div class="directory" v-else @click.stop="toggleFolder()">
+      <div class="folder">
+        <div
+          class="indent"
+          v-for="i in treeDeepth - 1"
+          :class="showIndent ? 'indent-show' : ''"
+          :key="i"
+        ></div>
+        <i :class="isOpen ? 'ri-arrow-down-s-line' : 'ri-arrow-right-s-line'"></i>
+        <pre class="space"></pre>
+        <i class="ri-folder-open-line" v-if="isOpen"></i>
+        <i class="ri-folder-line" v-else></i>
+        <pre class="space"></pre>
+        {{ itemData.name }}
+      </div>
+
+      <ul v-show="isOpen">
+        <tree-item
+          v-for="(subChild, subIndex) in itemData.children"
+          :key="subIndex"
+          :itemData="subChild"
+          :treeDeepth="treeDeepth + 1"
+          :showIndent="showIndent"
+        ></tree-item>
+      </ul>
+    </div>
+  </li>
+</template>
+
+<script lang="ts">
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+
+export interface ITreeItem {
+  name: string;
+  children?: Array<ITreeItem>;
+}
+
+@Component({
+  name: "TreeItem",
+})
+export default class TreeItem extends Vue {
+  @Prop({
+    type: Object,
+    required: true,
+  })
+  itemData!: ITreeItem;
+
+  @Prop({
+    type: Number,
+    default: 1,
+  })
+  treeDeepth!: number;
+
+  @Prop({
+    type: Boolean,
+    default: true,
+  })
+  showIndent!: boolean;
+
+  isOpen = false;
+
+  isHover = false;
+
+  get isFile() {
+    return this.itemData.children === undefined;
+  }
+
+  toggleFolder() {
+    this.isOpen = !this.isOpen;
+  }
+
+  openFile() {}
+}
+</script>
+
+<style lang="less" scoped>
+* {
+  -webkit-user-select: none;
+}
+
+@line-height: 1.3rem;
+
+li {
+  // background-color: #f3eddb; // DEV
+  cursor: pointer;
+}
+
+pre {
+  display: inline-block;
+
+  &.icon {
+    width: 1em;
+  }
+
+  &.space {
+    width: 0.2em;
+  }
+}
+
+.file,
+.folder {
+  width: 100%;
+  display: flex;
+  line-height: @line-height;
+
+  /deep/ i,
+  i {
+    line-height: @line-height;
+  }
+}
+
+.directory {
+  width: 100%;
+}
+
+.indent {
+  width: 0.5em;
+  margin-right: 0.2em;
+}
+
+.indent-show {
+  border-right: 0.3px solid rgba(126, 126, 126, 0.9);
+
+  transition: all 0.2s ease-in-out;
+}
+
+.file:hover,
+.folder:hover {
+  background-color: #ecdeb4;
+}
+</style>
