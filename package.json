@@ -16,7 +16,6 @@
 		"vue-property-decorator": "^9.0.0"
 	},
 	"devDependencies": {
-		"@types/vue": "^2.0.0",
 		"css-loader": "^4.1.1",
 		"html-webpack-plugin": "^4.3.0",
 		"less": "^3.12.2",
