@@ -1,0 +1,879 @@
+{
+  "name": "src",
+  "icon": "ri-folder-2-line",
+  "collapsible": true,
+  "collapsed": true,
+  "files": [
+    { "name": "script.pre.js", "icon": "ri-markdown-line", "collapsible": false },
+    { "name": "shims-vue.d.ts", "icon": "ri-markdown-line", "collapsible": false },
+    { "name": "shims.d.ts", "icon": "ri-markdown-line", "collapsible": false },
+    { "name": "tree.pre.json", "icon": "ri-markdown-line", "collapsible": false }
+  ],
+  "folders": [
+    {
+      "name": "common",
+      "icon": "ri-folder-2-line",
+      "collapsible": true,
+      "collapsed": true,
+      "files": [
+        { "name": "env.ts", "icon": "ri-markdown-line", "collapsible": false },
+        { "name": "url.ts", "icon": "ri-markdown-line", "collapsible": false },
+        { "name": "utils.ts", "icon": "ri-markdown-line", "collapsible": false }
+      ],
+      "folders": [
+        {
+          "name": "channel",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "bus.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "ipc.ts", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": []
+        },
+        {
+          "name": "fileSystem",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "export.pre.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "fileState.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "index.ts", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": []
+        },
+        {
+          "name": "i18n",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "iCommon.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "iInterface.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "iMenu.ts", "icon": "ri-markdown-line", "collapsible": false },
+            {
+              "name": "iMessage.pre.ts",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            }
+          ],
+          "folders": []
+        },
+        {
+          "name": "schema",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "index.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "sMarkdown.ts", "icon": "ri-markdown-line", "collapsible": false },
+            {
+              "name": "sPreference.ts",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            },
+            { "name": "sSystem.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "sTheme.ts", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": []
+        },
+        {
+          "name": "userData",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "Keybinding.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "Markdown.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "Preference.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "Snippet.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "System.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "Theme.ts", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": []
+        }
+      ]
+    },
+    {
+      "name": "library",
+      "icon": "ri-folder-2-line",
+      "collapsible": true,
+      "collapsed": true,
+      "files": [
+        {
+          "name": "atom-ripgrep.pre.js",
+          "icon": "ri-markdown-line",
+          "collapsible": false
+        },
+        {
+          "name": "markdown-it-hightlight-lines.js",
+          "icon": "ri-markdown-line",
+          "collapsible": false
+        },
+        {
+          "name": "markdown-it-image-list.ts",
+          "icon": "ri-markdown-line",
+          "collapsible": false
+        },
+        {
+          "name": "markdown-it-toc-and-anchor.ts",
+          "icon": "ri-markdown-line",
+          "collapsible": false
+        },
+        {
+          "name": "ripgrepSearcher.d.ts",
+          "icon": "ri-markdown-line",
+          "collapsible": false
+        },
+        { "name": "ripgrepSearcher.js", "icon": "ri-markdown-line", "collapsible": false }
+      ],
+      "folders": []
+    },
+    {
+      "name": "main",
+      "icon": "ri-folder-2-line",
+      "collapsible": true,
+      "collapsed": true,
+      "files": [
+        { "name": "UniText.ts", "icon": "ri-markdown-line", "collapsible": false },
+        { "name": "index.ts", "icon": "ri-markdown-line", "collapsible": false }
+      ],
+      "folders": [
+        {
+          "name": "cli",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [],
+          "folders": []
+        },
+        {
+          "name": "services",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            {
+              "name": "ImageManager.ts",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            },
+            { "name": "Listener.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "Logger.ts", "icon": "ri-markdown-line", "collapsible": false },
+            {
+              "name": "MenuManager.ts",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            },
+            { "name": "Printer.ts", "icon": "ri-markdown-line", "collapsible": false },
+            {
+              "name": "WindowManager.pre.ts",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            }
+          ],
+          "folders": []
+        },
+        {
+          "name": "templates",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "context.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "dock.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "top.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "tray.pre.ts", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": []
+        }
+      ]
+    },
+    {
+      "name": "renderer",
+      "icon": "ri-folder-2-line",
+      "collapsible": true,
+      "collapsed": true,
+      "files": [{ "name": "index.ts", "icon": "ri-markdown-line", "collapsible": false }],
+      "folders": [
+        {
+          "name": "commands",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [],
+          "folders": []
+        },
+        {
+          "name": "components",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "CheckList.vue", "icon": "ri-markdown-line", "collapsible": false },
+            {
+              "name": "ColorCard.pre.vue",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            },
+            {
+              "name": "EmojiCard.pre.vue",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            },
+            { "name": "SplitView.vue", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": [
+            {
+              "name": "Card",
+              "icon": "ri-folder-2-line",
+              "collapsible": true,
+              "collapsed": true,
+              "files": [],
+              "folders": []
+            },
+            {
+              "name": "Form",
+              "icon": "ri-folder-2-line",
+              "collapsible": true,
+              "collapsed": true,
+              "files": [
+                {
+                  "name": "UCheckBox.vue",
+                  "icon": "ri-markdown-line",
+                  "collapsible": false
+                },
+                {
+                  "name": "UInputNumber.vue",
+                  "icon": "ri-markdown-line",
+                  "collapsible": false
+                },
+                {
+                  "name": "UInputText.vue",
+                  "icon": "ri-markdown-line",
+                  "collapsible": false
+                },
+                {
+                  "name": "USelect.vue",
+                  "icon": "ri-markdown-line",
+                  "collapsible": false
+                },
+                {
+                  "name": "USelectOption.vue",
+                  "icon": "ri-markdown-line",
+                  "collapsible": false
+                },
+                {
+                  "name": "skeleton.ts",
+                  "icon": "ri-markdown-line",
+                  "collapsible": false
+                },
+                { "name": "style.less", "icon": "ri-markdown-line", "collapsible": false }
+              ],
+              "folders": []
+            },
+            {
+              "name": "Tree",
+              "icon": "ri-folder-2-line",
+              "collapsible": true,
+              "collapsed": true,
+              "files": [
+                {
+                  "name": "treeModel.ts",
+                  "icon": "ri-markdown-line",
+                  "collapsible": false
+                },
+                {
+                  "name": "treeView.less",
+                  "icon": "ri-markdown-line",
+                  "collapsible": false
+                },
+                {
+                  "name": "treeView.ts",
+                  "icon": "ri-markdown-line",
+                  "collapsible": false
+                },
+                {
+                  "name": "treeViewModel.ts",
+                  "icon": "ri-markdown-line",
+                  "collapsible": false
+                }
+              ],
+              "folders": []
+            }
+          ]
+        },
+        {
+          "name": "containers",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [],
+          "folders": [
+            {
+              "name": "ActivityBar",
+              "icon": "ri-folder-2-line",
+              "collapsible": true,
+              "collapsed": true,
+              "files": [
+                { "name": "Index.vue", "icon": "ri-markdown-line", "collapsible": false }
+              ],
+              "folders": []
+            },
+            {
+              "name": "SideBar",
+              "icon": "ri-folder-2-line",
+              "collapsible": true,
+              "collapsed": true,
+              "files": [
+                { "name": "Index.vue", "icon": "ri-markdown-line", "collapsible": false }
+              ],
+              "folders": [
+                {
+                  "name": "items",
+                  "icon": "ri-folder-2-line",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "files": [
+                    {
+                      "name": "Files.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "Marks.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "Search.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "Settings.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "Tags.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    }
+                  ],
+                  "folders": []
+                },
+                {
+                  "name": "widgets",
+                  "icon": "ri-folder-2-line",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "files": [
+                    {
+                      "name": "BaseView.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "FileTreeNode.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "ListNode.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    }
+                  ],
+                  "folders": []
+                }
+              ]
+            },
+            {
+              "name": "SidePanel",
+              "icon": "ri-folder-2-line",
+              "collapsible": true,
+              "collapsed": true,
+              "files": [
+                { "name": "Index.vue", "icon": "ri-markdown-line", "collapsible": false }
+              ],
+              "folders": [
+                {
+                  "name": "items",
+                  "icon": "ri-folder-2-line",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "files": [
+                    {
+                      "name": "Export.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "Info.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "Toc.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    }
+                  ],
+                  "folders": []
+                },
+                {
+                  "name": "widgets",
+                  "icon": "ri-folder-2-line",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "files": [
+                    {
+                      "name": "AdditionCheckGroup.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "InfoCard.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    }
+                  ],
+                  "folders": []
+                }
+              ]
+            },
+            {
+              "name": "StatusBar",
+              "icon": "ri-folder-2-line",
+              "collapsible": true,
+              "collapsed": true,
+              "files": [
+                { "name": "Index.vue", "icon": "ri-markdown-line", "collapsible": false }
+              ],
+              "folders": [
+                {
+                  "name": "items",
+                  "icon": "ri-folder-2-line",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "files": [
+                    {
+                      "name": "Message.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "Mode.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "PanelStyle.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "PanelType.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "SyncScheme.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "TagList.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    }
+                  ],
+                  "folders": []
+                },
+                {
+                  "name": "widgets",
+                  "icon": "ri-folder-2-line",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "files": [
+                    {
+                      "name": "CheckItem.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "MessagePanel.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "MessagePanelItem.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    }
+                  ],
+                  "folders": []
+                }
+              ]
+            },
+            {
+              "name": "TitleBar",
+              "icon": "ri-folder-2-line",
+              "collapsible": true,
+              "collapsed": true,
+              "files": [
+                { "name": "Index.vue", "icon": "ri-markdown-line", "collapsible": false }
+              ],
+              "folders": []
+            },
+            {
+              "name": "WorkBench",
+              "icon": "ri-folder-2-line",
+              "collapsible": true,
+              "collapsed": true,
+              "files": [
+                { "name": "Index.vue", "icon": "ri-markdown-line", "collapsible": false }
+              ],
+              "folders": [
+                {
+                  "name": "Schedule",
+                  "icon": "ri-folder-2-line",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "files": [],
+                  "folders": []
+                },
+                {
+                  "name": "Setting",
+                  "icon": "ri-folder-2-line",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "files": [
+                    {
+                      "name": ".DS_Store",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "Index.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    }
+                  ],
+                  "folders": [
+                    {
+                      "name": "items",
+                      "icon": "ri-folder-2-line",
+                      "collapsible": true,
+                      "collapsed": true,
+                      "files": [
+                        {
+                          "name": "Keybinding.pre.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        },
+                        {
+                          "name": "Markdown.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        },
+                        {
+                          "name": "Preference.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        },
+                        {
+                          "name": "Snippet.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        },
+                        {
+                          "name": "System.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        },
+                        {
+                          "name": "Theme.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        }
+                      ],
+                      "folders": []
+                    },
+                    {
+                      "name": "widgets",
+                      "icon": "ri-folder-2-line",
+                      "collapsible": true,
+                      "collapsed": true,
+                      "files": [
+                        {
+                          "name": "DropDown.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        },
+                        {
+                          "name": "GroupBase.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        },
+                        {
+                          "name": "GroupCreator.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        },
+                        {
+                          "name": "ItemTitle.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        },
+                        {
+                          "name": "TextGroup.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        },
+                        {
+                          "name": "style.less",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        }
+                      ],
+                      "folders": []
+                    }
+                  ]
+                },
+                {
+                  "name": "Startup",
+                  "icon": "ri-folder-2-line",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "files": [
+                    {
+                      "name": "Index.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    }
+                  ],
+                  "folders": []
+                },
+                {
+                  "name": "TabsWithDoc",
+                  "icon": "ri-folder-2-line",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "files": [
+                    {
+                      "name": "CloseIcon.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    },
+                    {
+                      "name": "Index.vue",
+                      "icon": "ri-markdown-line",
+                      "collapsible": false
+                    }
+                  ],
+                  "folders": [
+                    {
+                      "name": "RichText",
+                      "icon": "ri-folder-2-line",
+                      "collapsible": true,
+                      "collapsed": true,
+                      "files": [],
+                      "folders": []
+                    },
+                    {
+                      "name": "Source",
+                      "icon": "ri-folder-2-line",
+                      "collapsible": true,
+                      "collapsed": true,
+                      "files": [
+                        {
+                          "name": "Index.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        },
+                        {
+                          "name": "option.ts",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        },
+                        {
+                          "name": "theme.ts",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        }
+                      ],
+                      "folders": []
+                    },
+                    {
+                      "name": "ViewDocument",
+                      "icon": "ri-folder-2-line",
+                      "collapsible": true,
+                      "collapsed": true,
+                      "files": [],
+                      "folders": []
+                    },
+                    {
+                      "name": "ViewMarkdown",
+                      "icon": "ri-folder-2-line",
+                      "collapsible": true,
+                      "collapsed": true,
+                      "files": [
+                        {
+                          "name": "Index.pre.vue",
+                          "icon": "ri-markdown-line",
+                          "collapsible": false
+                        }
+                      ],
+                      "folders": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "pages",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "Main.vue", "icon": "ri-markdown-line", "collapsible": false },
+            {
+              "name": "Setting.pre.vue",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            },
+            { "name": "View.pre.vue", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": []
+        },
+        {
+          "name": "plugins",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "VueBus.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "VueI18n.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "VueLayout.ts", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": []
+        },
+        {
+          "name": "styles",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "main.less", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "var.less", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": []
+        },
+        {
+          "name": "utils",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            {
+              "name": "frontMatter.ts",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            },
+            { "name": "index.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "links.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "statistics.ts", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": []
+        },
+        {
+          "name": "vuex",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "general.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "index.ts", "icon": "ri-markdown-line", "collapsible": false },
+            {
+              "name": "notification.ts",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            },
+            { "name": "sideBar.ts", "icon": "ri-markdown-line", "collapsible": false },
+            {
+              "name": "statusPanel.ts",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            },
+            { "name": "workBench.ts", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": []
+        }
+      ]
+    },
+    {
+      "name": "typings",
+      "icon": "ri-folder-2-line",
+      "collapsible": true,
+      "collapsed": true,
+      "files": [
+        { "name": "document.ts", "icon": "ri-markdown-line", "collapsible": false },
+        { "name": "generics.ts", "icon": "ri-markdown-line", "collapsible": false },
+        { "name": "main.ts", "icon": "ri-markdown-line", "collapsible": false },
+        { "name": "renderer.ts", "icon": "ri-markdown-line", "collapsible": false }
+      ],
+      "folders": [
+        {
+          "name": "lib",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [],
+          "folders": []
+        },
+        {
+          "name": "schema",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "markdown.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "preference.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "system.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "theme.ts", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": []
+        },
+        {
+          "name": "vuex",
+          "icon": "ri-folder-2-line",
+          "collapsible": true,
+          "collapsed": true,
+          "files": [
+            { "name": "general.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "name": "index.ts", "icon": "ri-markdown-line", "collapsible": false },
+            {
+              "name": "notification.ts",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            },
+            { "name": "sideBar.ts", "icon": "ri-markdown-line", "collapsible": false },
+            {
+              "name": "statusPanel.ts",
+              "icon": "ri-markdown-line",
+              "collapsible": false
+            },
+            { "name": "workBench.ts", "icon": "ri-markdown-line", "collapsible": false }
+          ],
+          "folders": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+.unitext-scrollbar {
+  @scrollbar-width: 8px;
+
+  &.scrollbar-track {
+    background-color: rgba(197, 197, 197, 0.01); // DEV
+    position: absolute;
+    z-index: 99;
+  }
+
+  .scrollbar-thumb {
+    background-color: rgba(184, 184, 184, 0.7); // DEV
+  }
+
+  &.vertical {
+    top: 0;
+    right: 0;
+    width: @scrollbar-width;
+    height: 100%;
+
+    .scrollbar-thumb {
+      width: @scrollbar-width;
+    }
+  }
+
+  &.horizontal {
+    left: 0;
+    bottom: 0;
+    height: @scrollbar-width;
+    width: 100%;
+
+    .scrollbar-thumb {
+      height: @scrollbar-width;
+    }
+  }
+}

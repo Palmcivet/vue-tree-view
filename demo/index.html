@@ -1,14 +1,26 @@
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link
-			href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
-			rel="stylesheet"
-		/>
-		<title>Tree View VSCode-like</title>
-	</head>
-	<body>
-		<div id="app"></div>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TreeView</title>
+  </head>
+  <body>
+    <main>
+      <div class="scrollbar">
+        <h2>Scrollbar</h2>
+        <div id="scrollbar-ref"></div>
+      </div>
+      <div class="listview">
+        <h2>List View</h2>
+        <div id="listview-ref"></div>
+      </div>
+      <div class="treeview">
+        <h2>TreeView</h2>
+        <div id="treeview-ref"></div>
+      </div>
+    </main>
+    <script type="module" src="/main.ts"></script>
+  </body>
 </html>

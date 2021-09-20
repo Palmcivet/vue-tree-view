@@ -1,25 +1,18 @@
 {
-	"include": ["source", "types", "demo"],
-	"exclude": ["node_modules"],
-	"compilerOptions": {
-		"outDir": "build",
-		"module": "esnext",
-		"target": "esnext",
-		"jsx": "preserve",
-		"importHelpers": true,
-		"allowJs": true,
-		"strict": false,
-		"sourceMap": true,
-		"skipLibCheck": true,
-		"noImplicitAny": true,
-		"moduleResolution": "node",
-		"experimentalDecorators": true,
-		"typeRoots": ["node_modules/@types"],
-		"baseUrl": ".",
-		"paths": {
-			"@/*": ["source/*"],
-			"*": ["node_modules/*"]
-		},
-		"lib": ["dom", "es5", "es6", "es7", "esnext"]
-	}
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "Node",
+    "strict": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true
+  },
+  "include": ["./src", "demo/main.ts", "script"]
 }
