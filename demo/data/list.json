@@ -725,6 +725,5 @@
   "yaml",
   "yargs",
   "yargs-parser",
-  "yauzl",
-  ""
+  "yauzl"
 ]

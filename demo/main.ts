@@ -1,3 +1,4 @@
+import Monitor from "./Monitor";
 import ListView from "../src/ListView";
 import ListData from "./data/list.json";
 import "./style.less";
@@ -29,4 +30,6 @@ import "./theme.less";
   instance.invoke();
   instance.updateData(ListData);
   (context as any).listview = instance;
+
+  Monitor(document.getElementById("monitor") as HTMLCanvasElement);
 })(window);
