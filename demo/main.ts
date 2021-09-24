@@ -7,6 +7,7 @@ import "./theme.less";
 ((context: ThisType<Window>) => {
   const instance = new ListView<string>(document.getElementById("listview-ref")!, {
     itemHeight: 24,
+    fixedSize: false,
     suppressible: true,
     createHandler: () => {
       const node = document.createElement("li");

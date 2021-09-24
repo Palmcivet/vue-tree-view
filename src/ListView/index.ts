@@ -29,7 +29,8 @@ import "./index.less";
 /**
  * @var 为实现平滑滚动而补足的数据项数量
  */
-const DISPLAY_DSURPLUS = 4;
+const DSURPLUS_COUNT = 0;
+const PLACEHOLDER_COUNT = 1;
 
 interface IListViewOptions<T> {
   /**
@@ -103,6 +104,10 @@ export default class ListView<T> {
      * @description 滚动条宽度
      */
     scrollbarWidth: 0,
+    /**
+     * @description 高度
+     */
+    virtualContainerHeight: 0,
   };
 
   /**
@@ -114,7 +119,9 @@ export default class ListView<T> {
    * @description 视口待展示的数据量
    */
   private get virtualItemCount() {
-    return Math.ceil(this.container.clientHeight / this.options.itemHeight) + DISPLAY_DSURPLUS;
+    const { clientHeight } = this.container;
+    this.cachedValue.virtualContainerHeight = clientHeight;
+    return Math.ceil(clientHeight / this.options.itemHeight) + DSURPLUS_COUNT;
   }
 
   /**
@@ -160,7 +167,7 @@ export default class ListView<T> {
     this.scrollbar.invoke();
     this.container.addEventListener("scroll", this.onScroll.bind(this));
     this.container.addEventListener("click", this.options.clickHandler.bind(this));
-    if (this.options.fixedSize) {
+    if (!this.options.fixedSize) {
       window.addEventListener("resize", this.onResize.bind(this));
     }
 
@@ -199,32 +206,31 @@ export default class ListView<T> {
    * @param index 可选，插入的位置
    */
   public insertData(dataList: Array<T>, index?: number): void {
-    // 处理越界行为
+    /* 处理越界行为 */
 
-    // 添加数据
+    /* 添加数据 */
     this.sourceList.push(...dataList);
 
-    // 处理视口内的更新
+    /* 处理视口内的更新 */
   }
 
   /**
    * @description 全量更新数据，但只渲染视口内数据
-   *
    * @param dataList 新数据域
    */
   public updateData(dataList: Array<T>): void {
-    // 更新数据
+    /* 更新数据 */
     this.sourceList = [];
     this.sourceList.push(...dataList);
 
-    // 动态计算各尺寸
+    /* 动态计算各尺寸 */
     if (!this.options.fixedSize) {
       this._measureSize();
     }
 
-    // 更新 DOM
+    /* 更新 DOM */
     const children = this.container.children;
-    for (let index = children.length; index > 1; index--) {
+    for (let index = children.length; index > PLACEHOLDER_COUNT; index--) {
       this.container.removeChild(children[index]);
     }
 
@@ -235,7 +241,7 @@ export default class ListView<T> {
     }
     this.container.append(...nodes);
 
-    // 撑开容器
+    /* 撑开容器 */
     const x = 0; // TODO
     const y = this.actualContainerHeight - this.placeholder.clientHeight;
     this.placeholder.style.transform = `translate(${x}px, ${y}px)`;
@@ -266,27 +272,27 @@ export default class ListView<T> {
     const { itemHeight } = this.options;
     const scrolledTop = this.container.scrollTop;
 
-    // 偏移列表
+    /* 偏移列表 */
     const offset = scrolledTop % itemHeight;
     const startIndex = Math.floor(scrolledTop / itemHeight);
     const endIndex = startIndex + virtualItemCount;
 
-    // 渲染视口数据
+    /* 渲染视口数据 */
     const actualList = this.container.children;
     const virtualList = this.sourceList.slice(startIndex, endIndex);
 
     for (let index = 0; index < virtualItemCount; index++) {
-      const node = actualList[index + 1] as HTMLElement;
+      const node = actualList[index + PLACEHOLDER_COUNT] as HTMLElement;
       const x = 0;
       const y = scrolledTop + index * itemHeight - offset;
       node.style.transform = `translate(${x}px, ${y}px)`;
     }
 
     for (let index = 0; index < virtualItemCount; index++) {
-      const node = actualList[index + 1] as HTMLElement;
+      const node = actualList[index + PLACEHOLDER_COUNT] as HTMLElement;
       const data = virtualList[index];
 
-      // data 为空则是补足的元素
+      /* data 为空则是补足的元素 */
       if (!!data) {
         this.options.renderHandler(node, data, index);
       }
@@ -298,10 +304,10 @@ export default class ListView<T> {
    */
   private onScroll(event: Event): void {
     const { scrollTop } = event.target as HTMLElement;
-    const { clientHeight } = this.container;
+    const { virtualContainerHeight } = this.cachedValue;
 
-    // 越界操作
-    if (scrollTop < 0 || scrollTop + clientHeight > this.actualContainerHeight) {
+    /* 越界操作 */
+    if (scrollTop < 0 || scrollTop + virtualContainerHeight > this.actualContainerHeight) {
       return;
     }
 
@@ -312,8 +318,28 @@ export default class ListView<T> {
    * @description 缩放后的回调函数
    */
   private onResize(): void {
-    // 只有滚动高度和起始位置是不变的
-    // 滚动时动态渲染视口数据
-    // 因此只需要在边界修补数据
+    const cachedHeight = this.cachedValue.virtualContainerHeight;
+    const actualHeight = this.container.clientHeight;
+
+    if (cachedHeight < actualHeight) {
+      /* 放大 */
+      const count =
+        Math.ceil(actualHeight / this.options.itemHeight) +
+        DSURPLUS_COUNT -
+        (this.container.children.length - PLACEHOLDER_COUNT);
+
+      const nodes = [];
+      for (let index = 0; index < count; index++) {
+        nodes.push(this.options.createHandler());
+      }
+      this.container.append(...nodes);
+    }
+
+    if (cachedHeight > actualHeight) {
+      /* 缩小 */
+      // TODO 启动定时器清理节点
+    }
+
+    this._renderList();
   }
 }
