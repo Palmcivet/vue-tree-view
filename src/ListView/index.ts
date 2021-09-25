@@ -19,8 +19,9 @@
  *
  * ListView 在通用的应用场景下，ListItem 提供以下方法：
  * - insertData(data, index)：增量添加数据，适合懒加载
+ * - deteleData(index, count)：删除数据，返回被删除内容
  * - updateData(data)：全量更新数据，但只渲染视口内数据，成本较低
- * - resize()：手动更新容器尺寸
+ * - doResize()：手动更新容器尺寸
  */
 
 import Scrollbar from "../Scrollbar";
@@ -162,7 +163,7 @@ export default class ListView<T> {
   /**
    * @description 开始监听
    */
-  public invoke() {
+  public invoke(): void {
     this.root.appendChild(this.container);
     this.scrollbar.invoke();
     this.container.addEventListener("scroll", this.onScroll.bind(this));
@@ -207,11 +208,28 @@ export default class ListView<T> {
    */
   public insertData(dataList: Array<T>, index?: number): void {
     /* 处理越界行为 */
+    const maxIndex = this.sourceList.length;
+    const position = index === undefined || index < 0 || index > maxIndex ? maxIndex : index;
 
     /* 添加数据 */
-    this.sourceList.push(...dataList);
+    this.sourceList.splice(position, 0, ...dataList);
 
     /* 处理视口内的更新 */
+    if (position) {
+    }
+
+    this._stretchList();
+    this._renderList();
+  }
+
+  public deleteData(index: number, count: number = 1): Array<T> {
+    const deleted = this.sourceList.splice(index, count);
+
+    // TODO
+    this._stretchList();
+    this._recycleList();
+    this._renderList();
+    return deleted;
   }
 
   /**
@@ -241,11 +259,7 @@ export default class ListView<T> {
     }
     this.container.append(...nodes);
 
-    /* 撑开容器 */
-    const x = 0; // TODO
-    const y = this.actualContainerHeight - this.placeholder.clientHeight;
-    this.placeholder.style.transform = `translate(${x}px, ${y}px)`;
-
+    this._stretchList();
     this._renderList();
   }
 
@@ -262,6 +276,15 @@ export default class ListView<T> {
   private _measureSize(): void {
     this.cachedValue.runwayHeight = this.placeholder.clientHeight;
     this.cachedValue.runwayWidth = this.placeholder.clientWidth;
+  }
+
+  /***
+   * @description 撑开容器
+   */
+  private _stretchList(): void {
+    const x = 0; // TODO
+    const y = this.actualContainerHeight - this.placeholder.clientHeight;
+    this.placeholder.style.transform = `translate(${x}px, ${y}px)`;
   }
 
   /**
@@ -298,6 +321,8 @@ export default class ListView<T> {
       }
     }
   }
+
+  private _recycleList(): void {}
 
   /**
    * @description 滚动后的回调函数
@@ -338,6 +363,7 @@ export default class ListView<T> {
     if (cachedHeight > actualHeight) {
       /* 缩小 */
       // TODO 启动定时器清理节点
+      this._recycleList();
     }
 
     this._renderList();

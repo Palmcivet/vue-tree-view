@@ -5,7 +5,9 @@ import "./style.less";
 import "./theme.less";
 
 ((context: ThisType<Window>) => {
-  const instance = new ListView<string>(document.getElementById("listview-ref")!, {
+  Monitor(document.getElementById("monitor") as HTMLCanvasElement);
+
+  const ListViewInstance = new ListView<string>(document.getElementById("listview-ref")!, {
     itemHeight: 24,
     fixedSize: false,
     suppressible: true,
@@ -28,9 +30,18 @@ import "./theme.less";
     },
   });
 
-  instance.invoke();
-  instance.updateData(ListData);
-  (context as any).listview = instance;
+  let start = 0;
+  (context as any).ListViewInstance = ListViewInstance;
+  ListViewInstance.invoke();
+  ListViewInstance.updateData(ListData.slice(start, start + 10));
 
-  Monitor(document.getElementById("monitor") as HTMLCanvasElement);
+  document.getElementById("listview-add")?.addEventListener("click", () => {
+    start += 10;
+    ListViewInstance.insertData(ListData.slice(start, start + 10));
+  });
+  document.getElementById("listview-del")?.addEventListener("click", () => {
+    console.log(start);
+    const res = ListViewInstance.deleteData(start, 2);
+    console.log(res);
+  });
 })(window);
