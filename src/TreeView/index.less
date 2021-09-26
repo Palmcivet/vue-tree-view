@@ -1,9 +1,6 @@
-@import "~@/renderer/styles/var.less";
-
-.tree-view {
+.unitext-treeview {
   height: 100%;
-  position: relative;
-  overflow-y: auto;
+  line-height: 24px;
 
   li {
     display: flex;
@@ -27,9 +24,9 @@
       }
     }
 
-    .title {
+    .label {
       width: 100%;
-      margin-left: 3px;
+      margin-left: 4px;
       user-select: none;
       flex: 1;
       overflow: hidden;
@@ -39,12 +36,12 @@
   }
 
   li:hover {
-    background: var(--sideBarItem-selectFg);
+    background: rgb(97, 97, 97);
   }
 
   li.active {
-    color: var(--sideBarItem-hoverFg);
-    background: var(--sideBarItem-hoverBg);
+    color: rgb(230, 230, 230);
+    background: rgb(110, 110, 110);
   }
 
   input {
@@ -57,6 +54,6 @@
   }
 }
 
-.tree-view.hover .indent > div {
-  border-right: 0.1px solid var(--sideBarIndent-activeFg);
+.unitext-treeview.hover .indent > div {
+  border-right: 0.1px solid rgb(134, 134, 134);
 }

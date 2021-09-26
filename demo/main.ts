@@ -1,6 +1,8 @@
 import Monitor from "./Monitor";
 import ListView from "../src/ListView";
+import TreeView from "../src/TreeView";
 import ListData from "./data/list.json";
+import TreeData from "./data/tree.json";
 import "./style.less";
 import "./theme.less";
 
@@ -33,7 +35,7 @@ import "./theme.less";
   let start = 0;
   (context as any).ListViewInstance = ListViewInstance;
   ListViewInstance.invoke();
-  ListViewInstance.updateData(ListData.slice(start, start + 10));
+  ListViewInstance.updateData(ListData.slice(start, start + 20));
 
   document.getElementById("listview-add")?.addEventListener("click", () => {
     start += 10;
@@ -44,4 +46,38 @@ import "./theme.less";
     const res = ListViewInstance.deleteData(start, 2);
     console.log(res);
   });
+
+  const TreeViewInstance = new TreeView(document.getElementById("treeview-ref")!, TreeData, {
+    onContext: () => {},
+    onOpen: () => {},
+    createHandler: () => {
+      const node = document.createElement("li");
+      node.innerHTML = `
+<div class="indent"></div>
+<i class="twist"></i>
+<i class="icon"></i>
+<div class="label"></div>`;
+      return node;
+    },
+    renderHandler: (node, data, index) => {
+      const indent = data.getNodeIndent(-1);
+      node.title = data.label;
+      node.className = index.toString();
+      node.children[0].innerHTML = "<div></div>".repeat(indent);
+
+      if (data.collapsible) {
+        const collapsed = (data as any).collapsed;
+        node.children[1].className = collapsed ? "ri-arrow-right-s-line" : "ri-arrow-down-s-line";
+        node.children[2].className = collapsed ? "ri-folder-2-line" : "ri-folder-open-line";
+        // FEAT icon
+      } else {
+        node.children[1].className = "";
+        node.children[2].className = "ri-markdown-line"; // FEAT icon
+      }
+      node.children[3].innerHTML = indent + "-" + data.label;
+    },
+  });
+  TreeViewInstance.invoke();
+
+  (context as any).TreeViewInstance = TreeViewInstance;
 })(window);

@@ -19,7 +19,7 @@
  *
  * ListView 在通用的应用场景下，ListItem 提供以下方法：
  * - insertData(data, index)：增量添加数据，适合懒加载
- * - deteleData(index, count)：删除数据，返回被删除内容
+ * - deleteData(index, count)：删除数据，返回被删除内容
  * - updateData(data)：全量更新数据，但只渲染视口内数据，成本较低
  * - doResize()：手动更新容器尺寸
  */
@@ -33,7 +33,7 @@ import "./index.less";
 const DSURPLUS_COUNT = 0;
 const PLACEHOLDER_COUNT = 1;
 
-interface IListViewOptions<T> {
+export interface IListViewOptions<T> {
   /**
    * @member 容器的标签
    */
@@ -158,13 +158,13 @@ export default class ListView<T> {
     this.placeholder = document.createElement("div");
     this.placeholder.className = "listview-runway";
     this.container.appendChild(this.placeholder);
+    this.root.appendChild(this.container);
   }
 
   /**
    * @description 开始监听
    */
   public invoke(): void {
-    this.root.appendChild(this.container);
     this.scrollbar.invoke();
     this.container.addEventListener("scroll", this.onScroll.bind(this));
     this.container.addEventListener("click", this.options.clickHandler.bind(this));
@@ -222,10 +222,10 @@ export default class ListView<T> {
     this._renderList();
   }
 
+  // TODO
   public deleteData(index: number, count: number = 1): Array<T> {
     const deleted = this.sourceList.splice(index, count);
 
-    // TODO
     this._stretchList();
     this._recycleList();
     this._renderList();
@@ -248,7 +248,7 @@ export default class ListView<T> {
 
     /* 更新 DOM */
     const children = this.container.children;
-    for (let index = children.length; index > PLACEHOLDER_COUNT; index--) {
+    for (let index = children.length - 1; index > PLACEHOLDER_COUNT; index--) {
       this.container.removeChild(children[index]);
     }
 
