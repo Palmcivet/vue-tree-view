@@ -31,7 +31,7 @@ import "./index.less";
  * @var 为实现平滑滚动而补足的数据项数量
  */
 const DSURPLUS_COUNT = 0;
-const PLACEHOLDER_COUNT = 1;
+const RUNWAY_COUNT = 1;
 
 export interface IListViewOptions<T> {
   /**
@@ -39,7 +39,7 @@ export interface IListViewOptions<T> {
    */
   tagName: keyof HTMLElementTagNameMap;
   /**
-   * @member 容器的 class
+   * @member 自定义容器的类名
    */
   className: string;
   /**
@@ -54,6 +54,9 @@ export interface IListViewOptions<T> {
    * @member 容器宽度是否固定
    */
   fixedSize: boolean;
+
+  /* 以下为回调函数 */
+
   /**
    * @member 节点创建函数
    */
@@ -82,7 +85,7 @@ export default class ListView<T> {
   /**
    * @description 撑开容器的元素
    */
-  private readonly placeholder!: HTMLDivElement;
+  private readonly runway!: HTMLDivElement;
 
   /**
    * @description 滚动条
@@ -155,9 +158,9 @@ export default class ListView<T> {
     this.container = document.createElement(tagName);
     this.container.className = `unitext-listview ${className}`;
 
-    this.placeholder = document.createElement("div");
-    this.placeholder.className = "listview-runway";
-    this.container.appendChild(this.placeholder);
+    this.runway = document.createElement("div");
+    this.runway.className = "listview-runway";
+    this.container.appendChild(this.runway);
     this.root.appendChild(this.container);
   }
 
@@ -248,7 +251,7 @@ export default class ListView<T> {
 
     /* 更新 DOM */
     const children = this.container.children;
-    for (let index = children.length - 1; index > PLACEHOLDER_COUNT; index--) {
+    for (let index = children.length - 1; index > RUNWAY_COUNT; index--) {
       this.container.removeChild(children[index]);
     }
 
@@ -274,8 +277,8 @@ export default class ListView<T> {
    * @description 测量尺寸
    */
   private _measureSize(): void {
-    this.cachedValue.runwayHeight = this.placeholder.clientHeight;
-    this.cachedValue.runwayWidth = this.placeholder.clientWidth;
+    this.cachedValue.runwayHeight = this.runway.clientHeight;
+    this.cachedValue.runwayWidth = this.runway.clientWidth;
   }
 
   /***
@@ -283,8 +286,8 @@ export default class ListView<T> {
    */
   private _stretchList(): void {
     const x = 0; // TODO
-    const y = this.actualContainerHeight - this.placeholder.clientHeight;
-    this.placeholder.style.transform = `translate(${x}px, ${y}px)`;
+    const y = this.actualContainerHeight - this.runway.clientHeight;
+    this.runway.style.transform = `translate(${x}px, ${y}px)`;
   }
 
   /**
@@ -305,19 +308,19 @@ export default class ListView<T> {
     const virtualList = this.sourceList.slice(startIndex, endIndex);
 
     for (let index = 0; index < virtualItemCount; index++) {
-      const node = actualList[index + PLACEHOLDER_COUNT] as HTMLElement;
+      const node = actualList[index + RUNWAY_COUNT] as HTMLElement;
       const x = 0;
       const y = scrolledTop + index * itemHeight - offset;
       node.style.transform = `translate(${x}px, ${y}px)`;
     }
 
     for (let index = 0; index < virtualItemCount; index++) {
-      const node = actualList[index + PLACEHOLDER_COUNT] as HTMLElement;
+      const node = actualList[index + RUNWAY_COUNT] as HTMLElement;
       const data = virtualList[index];
 
       /* data 为空则是补足的元素 */
       if (!!data) {
-        this.options.renderHandler(node, data, index);
+        this.options.renderHandler(node, data, index - startIndex);
       }
     }
   }
@@ -351,7 +354,7 @@ export default class ListView<T> {
       const count =
         Math.ceil(actualHeight / this.options.itemHeight) +
         DSURPLUS_COUNT -
-        (this.container.children.length - PLACEHOLDER_COUNT);
+        (this.container.children.length - RUNWAY_COUNT);
 
       const nodes = [];
       for (let index = 0; index < count; index++) {

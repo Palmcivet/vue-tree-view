@@ -4,17 +4,38 @@ import "./index.less";
 
 type TreeNode = TreeNodeFile | TreeNodeFolder;
 
-interface ITreeViewOptions<T> extends Partial<IListViewOptions<T>> {
+interface ITreeViewOptions<T> {
   /**
-   * @member 数据源
+   * @description 展示缩进线
    */
-  initData?: ITreeNodeFolder;
-  showIndent?: boolean;
+  showIndent: boolean;
+  /**
+   * @description 自定义容器的类名
+   */
+  className: string;
+  /**
+   * @description 透传 ListView 的配置项
+   */
+  listView: Partial<IListViewOptions<T>>;
 
-  onOpen: Function;
-  onMove?: Function;
-  onDelete?: Function;
-  onContext: Function;
+  /* 以下为逻辑事件处理函数 */
+
+  /**
+   * @description 单击。展开文件夹/打开文件，操作的回调
+   */
+  clickHandler(...event: Array<any>): void;
+  /**
+   * @description 移动文件/文件夹。移动结束的回调
+   */
+  moveHandler(...event: Array<any>): void;
+  /**
+   * @description 删除文件/文件夹。删除结束的回调
+   */
+  deleteHandler(...event: Array<any>): void;
+  /**
+   * @description 右键。点击结束的回调
+   */
+  contextHandler(...event: Array<any>): void;
 }
 
 export default class TreeView {
@@ -24,17 +45,17 @@ export default class TreeView {
   private readonly root!: HTMLElement;
 
   /**
-   * @field 数据模型
+   * @field 树的数据模型
    */
   private readonly treeModel!: TreeNodeFolder | null;
 
   /**
    * @field 需要渲染的项目列表，包含文件/文件夹
    */
-  private readonly nodeList!: Array<TreeNode>;
+  private readonly nodeList: Array<TreeNode> = [];
 
   /**
-   * @field 渲染呈现
+   * @field 渲染列表的容器
    */
   private readonly listView!: ListView<TreeNode>;
 
@@ -48,18 +69,23 @@ export default class TreeView {
    */
   private readonly options!: ITreeViewOptions<TreeNode>;
 
-  constructor(root: HTMLElement, data: ITreeNodeFolder, options: ITreeViewOptions<TreeNode>) {
-    this.root = root;
-    this.root.className = `unitext-treeview`;
-    this.options = options;
-
-    this.treeModel = new TreeNodeFolder(data, null);
-
-    this.nodeList = this._getNodeList(this.treeModel);
-    this.listView = new ListView(root, {
-      // 透传
+  constructor(root: HTMLElement, data: ITreeNodeFolder, options?: Partial<ITreeViewOptions<TreeNode>>) {
+    this.options = {
+      showIndent: true,
+      className: "",
+      listView: {},
+      clickHandler: () => {},
+      moveHandler: () => {},
+      deleteHandler: () => {},
+      contextHandler: () => {},
       ...options,
-    });
+    };
+
+    const { className, listView } = this.options;
+    this.root = root;
+    this.root.className = `unitext-treeview ${className}`;
+    this.treeModel = new TreeNodeFolder(data, null);
+    this.listView = new ListView(root, { ...listView });
   }
 
   /**
@@ -75,17 +101,13 @@ export default class TreeView {
        */
       click: (index: number, event: MouseEvent): void => {
         if (!this.nodeList[index].collapsible) {
-          this.options.onOpen();
+          this.options.clickHandler();
+          return;
         }
 
-        if ((this.nodeList[index] as TreeNodeFolder).collapsed) {
-          this._setExpend(index);
-        } else {
-          this._setCollpase(index);
-        }
-
+        this._toggleCollpase(index, !(this.nodeList[index] as TreeNodeFolder).collapsed);
+        this.options.clickHandler(event);
         this._render();
-        this.options.clickHandler && this.options.clickHandler(event);
       },
 
       /**
@@ -95,10 +117,10 @@ export default class TreeView {
 
       /**
        * @description 右键
-       * @param idx 序号
+       * @param index 序号
        */
-      contextmenu: (idx: number): void => {
-        this.options.onContext(this.nodeList[idx].getAncestorNode());
+      contextmenu: (index: number): void => {
+        this.options.contextHandler(this.nodeList[index].getAncestorNode());
       },
 
       keydown: (idx: number): void => {
@@ -135,16 +157,20 @@ export default class TreeView {
    */
   public toggleAll(isAll: boolean): void {}
 
-  private _setExpend(idx: number): void {
-    const target = this.nodeList[idx] as TreeNodeFolder;
-    target.setCollapsible(false);
-    this.nodeList.splice(idx + 1, 0, ...this._getNodeList(target));
-  }
-
-  private _setCollpase(idx: number): void {
-    const target = this.nodeList[idx] as TreeNodeFolder;
-    target.setCollapsible(true);
-    this.nodeList.splice(idx + 1, this._getNodeList(target).length);
+  /**
+   * @description 开关文件夹
+   * @param index 下标
+   * @param status 是否折叠
+   */
+  private _toggleCollpase(index: number, status: boolean): void {
+    const target = this.nodeList[index] as TreeNodeFolder;
+    if (status) {
+      target.setCollapsible(true);
+      this.nodeList.splice(index + 1, this._getNodeList(target).length);
+    } else {
+      target.setCollapsible(false);
+      this.nodeList.splice(index + 1, 0, ...this._getNodeList(target));
+    }
   }
 
   /**
