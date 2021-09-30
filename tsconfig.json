@@ -1,18 +1,16 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": ["ESNext", "DOM"],
-    "moduleResolution": "Node",
     "strict": true,
-    "sourceMap": true,
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "noEmit": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true
+    "declaration": true,
+    "useDefineForClassFields": true,
+    "noImplicitReturns": true,
+    "removeComments": true
   },
-  "include": ["./src", "demo/main.ts", "script"]
+  "include": ["src"],
+  "exclude": ["src/**/*.test.ts"]
 }
