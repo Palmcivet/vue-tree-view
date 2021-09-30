@@ -1,6 +1,7 @@
-import Monitor from "./Monitor";
-import ListView from "../src/ListView";
-import TreeView from "../src/TreeView";
+import ListView from "../dist/esm/ListView";
+import TreeView from "../dist/esm/TreeView";
+
+import Monitor from "./monitor";
 import ListData from "./data/list.json";
 import TreeData from "./data/tree.json";
 import "./style.less";

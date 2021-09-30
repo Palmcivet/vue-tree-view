@@ -1,10 +1,11 @@
+// @ts-nocheck
 import ListView, { IListViewOptions } from "../ListView";
 import { ITreeNodeFolder, TreeNodeFile, TreeNodeFolder } from "./TreeModel";
 import "./index.less";
 
 type TreeNode = TreeNodeFile | TreeNodeFolder;
 
-interface ITreeViewOptions<T> {
+export interface ITreeViewOptions<T> {
   /**
    * @description 展示缩进线
    */

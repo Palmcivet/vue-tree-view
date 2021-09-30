@@ -1,9 +1,32 @@
-.unitext-listview {
-  li {
-    margin-left: 4px;
-    width: calc(100% - 8px);
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
+body {
+  margin: 0;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+#scrollbar-ref,
+#listview-ref,
+#treeview-ref {
+  width: 250px;
+  height: 70vh;
+  background: #2c3e50;
+  color: #bfbfbf;
 }

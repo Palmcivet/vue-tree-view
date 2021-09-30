@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * - 检测挂载节点宽度和滚动条宽度，将容器宽度放大，隐藏原生滚动条
  * - 监听滚动事件，替代滚动行为
@@ -7,7 +9,7 @@ import "./index.less";
 
 type Direction = "vertical" | "horizontal";
 
-interface IScrollbarOptions {
+export interface IScrollbarOptions {
   /**
    * @member 是否悬浮
    */

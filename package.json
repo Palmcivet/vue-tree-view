@@ -1,13 +1,17 @@
 {
-  "name": "unitext-tree-view",
+  "name": "@palmcivet/tree-view",
   "version": "0.2.0",
   "description": "a tree-view component that imitate VSCode",
   "author": "Palm Civet <palmcivet_email@qq.com>",
   "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "dev": "vite serve demo/",
-    "build": "tsc && vite build demo/",
-    "preview": "vite preview"
+    "build": "tsc -p tsconfig.json"
   },
   "devDependencies": {
     "less": "^4.1.2",
