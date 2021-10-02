@@ -9,9 +9,11 @@
   "files": [
     "dist/"
   ],
+  "repository": "https://github.com/palmcivet/tree-view.git",
   "scripts": {
     "dev": "vite serve demo/",
-    "build": "tsc -p tsconfig.json"
+    "tsc": "tsc",
+    "build": "node script/build.js"
   },
   "devDependencies": {
     "less": "^4.1.2",

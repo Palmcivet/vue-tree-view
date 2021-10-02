@@ -1,7 +1,6 @@
 // @ts-nocheck
 import ListView, { IListViewOptions } from "../ListView";
 import { ITreeNodeFolder, TreeNodeFile, TreeNodeFolder } from "./TreeModel";
-import "./index.less";
 
 type TreeNode = TreeNodeFile | TreeNodeFolder;
 

@@ -25,7 +25,6 @@
  */
 
 import Scrollbar from "../Scrollbar";
-import "./index.less";
 
 /**
  * @var 为实现平滑滚动而补足的数据项数量

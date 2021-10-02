@@ -5,8 +5,6 @@
  * - 监听滚动事件，替代滚动行为
  */
 
-import "./index.less";
-
 type Direction = "vertical" | "horizontal";
 
 export interface IScrollbarOptions {
