@@ -1,6 +1,6 @@
 {
   "name": "@palmcivet/tree-view",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "a tree-view component that imitate VSCode",
   "author": "Palm Civet <palmcivet_email@qq.com>",
   "license": "MIT",
@@ -10,14 +10,22 @@
     "dist/"
   ],
   "repository": "https://github.com/palmcivet/tree-view.git",
+  "bugs": "https://github.com/palmcivet/tree-view/issues",
+  "homepage": "https://github.com/palmcivet/tree-view",
+  "keywords": [
+    "TreeView",
+    "ListView",
+    "VSCode"
+  ],
   "scripts": {
     "dev": "vite serve demo/",
     "tsc": "tsc",
     "build": "node script/build.js"
   },
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "less": "^4.1.2",
-    "typescript": "^4.4.4",
-    "vite": "^2.7.2"
+    "typescript": "^4.5.4",
+    "vite": "^2.7.10"
   }
 }

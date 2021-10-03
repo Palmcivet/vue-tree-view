@@ -24,7 +24,7 @@
  * - doResize()：手动更新容器尺寸
  */
 
-import Scrollbar from "../Scrollbar";
+import { Scrollbar } from "../Scrollbar";
 
 /**
  * @var 为实现平滑滚动而补足的数据项数量
@@ -70,7 +70,7 @@ export interface IListViewOptions<T> {
   clickHandler(event: MouseEvent): void;
 }
 
-export default class ListView<T> {
+export class ListView<T> {
   /**
    * @description 挂载的节点
    */
@@ -211,7 +211,8 @@ export default class ListView<T> {
   public insertData(dataList: Array<T>, index?: number): void {
     /* 处理越界行为 */
     const maxIndex = this.sourceList.length;
-    const position = index === undefined || index < 0 || index > maxIndex ? maxIndex : index;
+    const position =
+      index === undefined || index < 0 || index > maxIndex ? maxIndex : index;
 
     /* 添加数据 */
     this.sourceList.splice(position, 0, ...dataList);
@@ -334,7 +335,10 @@ export default class ListView<T> {
     const { virtualContainerHeight } = this.cachedValue;
 
     /* 越界操作 */
-    if (scrollTop < 0 || scrollTop + virtualContainerHeight > this.actualContainerHeight) {
+    if (
+      scrollTop < 0 ||
+      scrollTop + virtualContainerHeight > this.actualContainerHeight
+    ) {
       return;
     }
 

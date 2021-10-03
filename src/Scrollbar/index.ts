@@ -22,7 +22,7 @@ export interface IScrollbarOptions {
   scrollBehavior: "beisaier" | "smooth";
 }
 
-export default class Scrollbar {
+export class Scrollbar {
   /**
    * @description 滚动方向
    */
@@ -72,7 +72,11 @@ export default class Scrollbar {
    */
   private options!: IScrollbarOptions;
 
-  constructor(root: HTMLElement, direction?: Direction, options?: Partial<IScrollbarOptions>) {
+  constructor(
+    root: HTMLElement,
+    direction?: Direction,
+    options?: Partial<IScrollbarOptions>
+  ) {
     this.options = {
       suppressible: true,
       isLevitative: true,
@@ -121,7 +125,9 @@ export default class Scrollbar {
   }
 
   public setThumbSize(size: number): void {
-    const attribute: keyof HTMLDivElement = `client${this.isVertical ? "Height" : "Width"}`;
+    const attribute: keyof HTMLDivElement = `client${
+      this.isVertical ? "Height" : "Width"
+    }`;
     if (size >= this.scrollbarTrack[attribute] || size <= 0) {
       return;
     }
@@ -130,7 +136,9 @@ export default class Scrollbar {
   }
 
   public scrollTo(position: number): void {
-    const attribute: keyof HTMLDivElement = `client${this.isVertical ? "Height" : "Width"}`;
+    const attribute: keyof HTMLDivElement = `client${
+      this.isVertical ? "Height" : "Width"
+    }`;
 
     if (position <= 0) {
       this.scrollbarThumb.style[this.isVertical ? "top" : "left"] = "0px";

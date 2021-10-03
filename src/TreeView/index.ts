@@ -1,5 +1,5 @@
 // @ts-nocheck
-import ListView, { IListViewOptions } from "../ListView";
+import { ListView, IListViewOptions } from "../ListView";
 import { ITreeNodeFolder, TreeNodeFile, TreeNodeFolder } from "./TreeModel";
 
 type TreeNode = TreeNodeFile | TreeNodeFolder;
@@ -38,7 +38,7 @@ export interface ITreeViewOptions<T> {
   contextHandler(...event: Array<any>): void;
 }
 
-export default class TreeView {
+export class TreeView {
   /**
    * @description 根节点
    */
@@ -69,7 +69,11 @@ export default class TreeView {
    */
   private readonly options!: ITreeViewOptions<TreeNode>;
 
-  constructor(root: HTMLElement, data: ITreeNodeFolder, options?: Partial<ITreeViewOptions<TreeNode>>) {
+  constructor(
+    root: HTMLElement,
+    data: ITreeNodeFolder,
+    options?: Partial<ITreeViewOptions<TreeNode>>
+  ) {
     this.options = {
       showIndent: true,
       className: "",

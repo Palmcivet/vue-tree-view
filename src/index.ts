@@ -1,6 +1,5 @@
-import ListView, { IListViewOptions } from "./ListView";
-import TreeView, { ITreeViewOptions } from "./TreeView";
-import Scrollbar, { IScrollbarOptions } from "./Scrollbar";
+export { ListView, IListViewOptions } from "./ListView";
+export { TreeView, ITreeViewOptions } from "./TreeView";
+export { Scrollbar, IScrollbarOptions } from "./Scrollbar";
 
-export { ListView, TreeView, Scrollbar };
-export { IListViewOptions, ITreeViewOptions, IScrollbarOptions };
+export { ITreeNodeFile, ITreeNodeFolder } from "./TreeView/TreeModel";
