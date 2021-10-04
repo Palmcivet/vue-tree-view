@@ -1,8 +1,18 @@
-// @ts-nocheck
 import { ListView, IListViewOptions } from "../ListView";
-import { ITreeNodeFolder, TreeNodeFile, TreeNodeFolder } from "./TreeModel";
+import { TreeNodeFile, TreeNodeFolder } from "./TreeModel";
+import { ITreeNodeFolder } from "./interface";
 
 type TreeNode = TreeNodeFile | TreeNodeFolder;
+
+const DEFAULT = {
+  label: "",
+  icon: "",
+  collapsible: true,
+  collapsed: true,
+  loaded: false,
+  files: [],
+  folders: [],
+};
 
 export interface ITreeViewOptions<T> {
   /**
@@ -36,6 +46,10 @@ export interface ITreeViewOptions<T> {
    * @description 右键。点击结束的回调
    */
   contextHandler(...event: Array<any>): void;
+  /**
+   * @description 获取文件
+   */
+  fetchHandler(...event: Array<any>): Promise<ITreeNodeFolder>;
 }
 
 export class TreeView {
@@ -69,11 +83,7 @@ export class TreeView {
    */
   private readonly options!: ITreeViewOptions<TreeNode>;
 
-  constructor(
-    root: HTMLElement,
-    data: ITreeNodeFolder,
-    options?: Partial<ITreeViewOptions<TreeNode>>
-  ) {
+  constructor(root: HTMLElement, data: ITreeNodeFolder = DEFAULT, options?: Partial<ITreeViewOptions<TreeNode>>) {
     this.options = {
       showIndent: true,
       className: "",
@@ -82,6 +92,7 @@ export class TreeView {
       moveHandler: () => {},
       deleteHandler: () => {},
       contextHandler: () => {},
+      fetchHandler: async () => DEFAULT,
       ...options,
     };
 
@@ -90,6 +101,7 @@ export class TreeView {
     this.root.className = `unitext-treeview ${className}`;
     this.treeModel = new TreeNodeFolder(data, null);
     this.listView = new ListView(root, { ...listView });
+    this.nodeList = this._getNodeList(this.treeModel);
   }
 
   /**
@@ -104,14 +116,16 @@ export class TreeView {
        * @param index 序号
        */
       click: (index: number, event: MouseEvent): void => {
-        if (!this.nodeList[index].collapsible) {
-          this.options.clickHandler();
-          return;
+        const targetNode = this.nodeList[index];
+
+        if (targetNode.collapsible) {
+          this._toggleCollpase(index, !(targetNode as TreeNodeFolder).collapsed);
         }
 
-        this._toggleCollpase(index, !(this.nodeList[index] as TreeNodeFolder).collapsed);
+        // TODO
+        // 此处是异步函数
+        // 回调作用还不确定
         this.options.clickHandler(event);
-        this._render();
       },
 
       /**
@@ -136,7 +150,7 @@ export class TreeView {
       this.root.addEventListener(eventName, (event) => {
         const target = event.target as HTMLElement;
         if (["DIV", "I"].includes(target.nodeName)) {
-          const index = Number.parseInt(target.parentElement!.className);
+          const index = Number.parseInt(target.parentElement!.dataset.index!);
           EVENT_MAP[eventName].call(this, index, event);
         }
       });
@@ -148,7 +162,12 @@ export class TreeView {
   /**
    * @description 清理函数
    */
-  public dispose(): void {}
+  public dispose(): void {
+    this.listView.dispose();
+    for (let index = 0; index < this.root.children.length; index++) {
+      this.root.removeChild(this.root.children[index]);
+    }
+  }
 
   /**
    * @description 更新配置
@@ -166,15 +185,23 @@ export class TreeView {
    * @param index 下标
    * @param status 是否折叠
    */
-  private _toggleCollpase(index: number, status: boolean): void {
+  private async _toggleCollpase(index: number, status: boolean): Promise<void> {
     const target = this.nodeList[index] as TreeNodeFolder;
+
     if (status) {
       target.setCollapsible(true);
       this.nodeList.splice(index + 1, this._getNodeList(target).length);
     } else {
       target.setCollapsible(false);
+      this.listView.renderItem(target, index);
+      if (!target.getLoadStatus()) {
+        const data = await this.options.fetchHandler();
+        target.loadFolder(data);
+      }
       this.nodeList.splice(index + 1, 0, ...this._getNodeList(target));
     }
+
+    this._render();
   }
 
   /**
@@ -186,6 +213,7 @@ export class TreeView {
 
     // TODO 顺序
 
+    // TODO 封装，从 get- 接口获取
     model.folders.forEach((item) => {
       list.push(item);
       if (!item.collapsed) {

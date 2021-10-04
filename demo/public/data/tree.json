@@ -4,10 +4,10 @@
   "collapsible": true,
   "collapsed": true,
   "files": [
-    { "label": "script.pre.js", "icon": "ri-markdown-line", "collapsible": false },
-    { "label": "shims-vue.d.ts", "icon": "ri-markdown-line", "collapsible": false },
-    { "label": "shims.d.ts", "icon": "ri-markdown-line", "collapsible": false },
-    { "label": "tree.pre.json", "icon": "ri-markdown-line", "collapsible": false }
+    { "label": "script.pre.js", "icon": "", "collapsible": false },
+    { "label": "shims-vue.d.ts", "icon": "", "collapsible": false },
+    { "label": "shims.d.ts", "icon": "", "collapsible": false },
+    { "label": "tree.pre.json", "icon": "", "collapsible": false }
   ],
   "folders": [
     {
@@ -16,9 +16,9 @@
       "collapsible": true,
       "collapsed": true,
       "files": [
-        { "label": "env.ts", "icon": "ri-markdown-line", "collapsible": false },
-        { "label": "url.ts", "icon": "ri-markdown-line", "collapsible": false },
-        { "label": "utils.ts", "icon": "ri-markdown-line", "collapsible": false }
+        { "label": "env.ts", "icon": "", "collapsible": false },
+        { "label": "url.ts", "icon": "", "collapsible": false },
+        { "label": "utils.ts", "icon": "", "collapsible": false }
       ],
       "folders": [
         {
@@ -27,8 +27,8 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "bus.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "ipc.ts", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "bus.ts", "icon": "", "collapsible": false },
+            { "label": "ipc.ts", "icon": "", "collapsible": false }
           ],
           "folders": []
         },
@@ -38,9 +38,9 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "export.pre.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "fileState.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "index.ts", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "export.pre.ts", "icon": "", "collapsible": false },
+            { "label": "fileState.ts", "icon": "", "collapsible": false },
+            { "label": "index.ts", "icon": "", "collapsible": false }
           ],
           "folders": []
         },
@@ -50,12 +50,12 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "iCommon.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "iInterface.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "iMenu.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "label": "iCommon.ts", "icon": "", "collapsible": false },
+            { "label": "iInterface.ts", "icon": "", "collapsible": false },
+            { "label": "iMenu.ts", "icon": "", "collapsible": false },
             {
               "label": "iMessage.pre.ts",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             }
           ],
@@ -67,15 +67,15 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "index.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "sMarkdown.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "label": "index.ts", "icon": "", "collapsible": false },
+            { "label": "sMarkdown.ts", "icon": "", "collapsible": false },
             {
               "label": "sPreference.ts",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             },
-            { "label": "sSystem.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "sTheme.ts", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "sSystem.ts", "icon": "", "collapsible": false },
+            { "label": "sTheme.ts", "icon": "", "collapsible": false }
           ],
           "folders": []
         },
@@ -85,12 +85,12 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "Keybinding.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "Markdown.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "Preference.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "Snippet.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "System.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "Theme.ts", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "Keybinding.ts", "icon": "", "collapsible": false },
+            { "label": "Markdown.ts", "icon": "", "collapsible": false },
+            { "label": "Preference.ts", "icon": "", "collapsible": false },
+            { "label": "Snippet.ts", "icon": "", "collapsible": false },
+            { "label": "System.ts", "icon": "", "collapsible": false },
+            { "label": "Theme.ts", "icon": "", "collapsible": false }
           ],
           "folders": []
         }
@@ -104,30 +104,30 @@
       "files": [
         {
           "label": "atom-ripgrep.pre.js",
-          "icon": "ri-markdown-line",
+          "icon": "",
           "collapsible": false
         },
         {
           "label": "markdown-it-hightlight-lines.js",
-          "icon": "ri-markdown-line",
+          "icon": "",
           "collapsible": false
         },
         {
           "label": "markdown-it-image-list.ts",
-          "icon": "ri-markdown-line",
+          "icon": "",
           "collapsible": false
         },
         {
           "label": "markdown-it-toc-and-anchor.ts",
-          "icon": "ri-markdown-line",
+          "icon": "",
           "collapsible": false
         },
         {
           "label": "ripgrepSearcher.d.ts",
-          "icon": "ri-markdown-line",
+          "icon": "",
           "collapsible": false
         },
-        { "label": "ripgrepSearcher.js", "icon": "ri-markdown-line", "collapsible": false }
+        { "label": "ripgrepSearcher.js", "icon": "", "collapsible": false }
       ],
       "folders": []
     },
@@ -137,8 +137,8 @@
       "collapsible": true,
       "collapsed": true,
       "files": [
-        { "label": "UniText.ts", "icon": "ri-markdown-line", "collapsible": false },
-        { "label": "index.ts", "icon": "ri-markdown-line", "collapsible": false }
+        { "label": "UniText.ts", "icon": "", "collapsible": false },
+        { "label": "index.ts", "icon": "", "collapsible": false }
       ],
       "folders": [
         {
@@ -157,20 +157,20 @@
           "files": [
             {
               "label": "ImageManager.ts",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             },
-            { "label": "Listener.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "Logger.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "label": "Listener.ts", "icon": "", "collapsible": false },
+            { "label": "Logger.ts", "icon": "", "collapsible": false },
             {
               "label": "MenuManager.ts",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             },
-            { "label": "Printer.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "label": "Printer.ts", "icon": "", "collapsible": false },
             {
               "label": "WindowManager.pre.ts",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             }
           ],
@@ -182,10 +182,10 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "context.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "dock.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "top.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "tray.pre.ts", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "context.ts", "icon": "", "collapsible": false },
+            { "label": "dock.ts", "icon": "", "collapsible": false },
+            { "label": "top.ts", "icon": "", "collapsible": false },
+            { "label": "tray.pre.ts", "icon": "", "collapsible": false }
           ],
           "folders": []
         }
@@ -196,7 +196,7 @@
       "icon": "ri-folder-2-line",
       "collapsible": true,
       "collapsed": true,
-      "files": [{ "label": "index.ts", "icon": "ri-markdown-line", "collapsible": false }],
+      "files": [{ "label": "index.ts", "icon": "", "collapsible": false }],
       "folders": [
         {
           "label": "commands",
@@ -212,18 +212,18 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "CheckList.vue", "icon": "ri-markdown-line", "collapsible": false },
+            { "label": "CheckList.vue", "icon": "", "collapsible": false },
             {
               "label": "ColorCard.pre.vue",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             },
             {
               "label": "EmojiCard.pre.vue",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             },
-            { "label": "SplitView.vue", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "SplitView.vue", "icon": "", "collapsible": false }
           ],
           "folders": [
             {
@@ -242,35 +242,35 @@
               "files": [
                 {
                   "label": "UCheckBox.vue",
-                  "icon": "ri-markdown-line",
+                  "icon": "",
                   "collapsible": false
                 },
                 {
                   "label": "UInputNumber.vue",
-                  "icon": "ri-markdown-line",
+                  "icon": "",
                   "collapsible": false
                 },
                 {
                   "label": "UInputText.vue",
-                  "icon": "ri-markdown-line",
+                  "icon": "",
                   "collapsible": false
                 },
                 {
                   "label": "USelect.vue",
-                  "icon": "ri-markdown-line",
+                  "icon": "",
                   "collapsible": false
                 },
                 {
                   "label": "USelectOption.vue",
-                  "icon": "ri-markdown-line",
+                  "icon": "",
                   "collapsible": false
                 },
                 {
                   "label": "skeleton.ts",
-                  "icon": "ri-markdown-line",
+                  "icon": "",
                   "collapsible": false
                 },
-                { "label": "style.less", "icon": "ri-markdown-line", "collapsible": false }
+                { "label": "style.less", "icon": "", "collapsible": false }
               ],
               "folders": []
             },
@@ -282,22 +282,22 @@
               "files": [
                 {
                   "label": "treeModel.ts",
-                  "icon": "ri-markdown-line",
+                  "icon": "",
                   "collapsible": false
                 },
                 {
                   "label": "treeView.less",
-                  "icon": "ri-markdown-line",
+                  "icon": "",
                   "collapsible": false
                 },
                 {
                   "label": "treeView.ts",
-                  "icon": "ri-markdown-line",
+                  "icon": "",
                   "collapsible": false
                 },
                 {
                   "label": "treeViewModel.ts",
-                  "icon": "ri-markdown-line",
+                  "icon": "",
                   "collapsible": false
                 }
               ],
@@ -318,7 +318,7 @@
               "collapsible": true,
               "collapsed": true,
               "files": [
-                { "label": "Index.vue", "icon": "ri-markdown-line", "collapsible": false }
+                { "label": "Index.vue", "icon": "", "collapsible": false }
               ],
               "folders": []
             },
@@ -328,7 +328,7 @@
               "collapsible": true,
               "collapsed": true,
               "files": [
-                { "label": "Index.vue", "icon": "ri-markdown-line", "collapsible": false }
+                { "label": "Index.vue", "icon": "", "collapsible": false }
               ],
               "folders": [
                 {
@@ -339,27 +339,27 @@
                   "files": [
                     {
                       "label": "Files.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "Marks.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "Search.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "Settings.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "Tags.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     }
                   ],
@@ -373,17 +373,17 @@
                   "files": [
                     {
                       "label": "BaseView.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "FileTreeNode.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "ListNode.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     }
                   ],
@@ -397,7 +397,7 @@
               "collapsible": true,
               "collapsed": true,
               "files": [
-                { "label": "Index.vue", "icon": "ri-markdown-line", "collapsible": false }
+                { "label": "Index.vue", "icon": "", "collapsible": false }
               ],
               "folders": [
                 {
@@ -408,17 +408,17 @@
                   "files": [
                     {
                       "label": "Export.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "Info.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "Toc.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     }
                   ],
@@ -432,12 +432,12 @@
                   "files": [
                     {
                       "label": "AdditionCheckGroup.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "InfoCard.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     }
                   ],
@@ -451,7 +451,7 @@
               "collapsible": true,
               "collapsed": true,
               "files": [
-                { "label": "Index.vue", "icon": "ri-markdown-line", "collapsible": false }
+                { "label": "Index.vue", "icon": "", "collapsible": false }
               ],
               "folders": [
                 {
@@ -462,32 +462,32 @@
                   "files": [
                     {
                       "label": "Message.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "Mode.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "PanelStyle.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "PanelType.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "SyncScheme.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "TagList.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     }
                   ],
@@ -501,17 +501,17 @@
                   "files": [
                     {
                       "label": "CheckItem.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "MessagePanel.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "MessagePanelItem.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     }
                   ],
@@ -525,7 +525,7 @@
               "collapsible": true,
               "collapsed": true,
               "files": [
-                { "label": "Index.vue", "icon": "ri-markdown-line", "collapsible": false }
+                { "label": "Index.vue", "icon": "", "collapsible": false }
               ],
               "folders": []
             },
@@ -535,7 +535,7 @@
               "collapsible": true,
               "collapsed": true,
               "files": [
-                { "label": "Index.vue", "icon": "ri-markdown-line", "collapsible": false }
+                { "label": "Index.vue", "icon": "", "collapsible": false }
               ],
               "folders": [
                 {
@@ -554,12 +554,12 @@
                   "files": [
                     {
                       "label": ".DS_Store",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "Index.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     }
                   ],
@@ -572,32 +572,32 @@
                       "files": [
                         {
                           "label": "Keybinding.pre.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         },
                         {
                           "label": "Markdown.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         },
                         {
                           "label": "Preference.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         },
                         {
                           "label": "Snippet.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         },
                         {
                           "label": "System.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         },
                         {
                           "label": "Theme.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         }
                       ],
@@ -611,32 +611,32 @@
                       "files": [
                         {
                           "label": "DropDown.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         },
                         {
                           "label": "GroupBase.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         },
                         {
                           "label": "GroupCreator.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         },
                         {
                           "label": "ItemTitle.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         },
                         {
                           "label": "TextGroup.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         },
                         {
                           "label": "style.less",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         }
                       ],
@@ -652,7 +652,7 @@
                   "files": [
                     {
                       "label": "Index.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     }
                   ],
@@ -666,12 +666,12 @@
                   "files": [
                     {
                       "label": "CloseIcon.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     },
                     {
                       "label": "Index.vue",
-                      "icon": "ri-markdown-line",
+                      "icon": "",
                       "collapsible": false
                     }
                   ],
@@ -692,17 +692,17 @@
                       "files": [
                         {
                           "label": "Index.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         },
                         {
                           "label": "option.ts",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         },
                         {
                           "label": "theme.ts",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         }
                       ],
@@ -724,7 +724,7 @@
                       "files": [
                         {
                           "label": "Index.pre.vue",
-                          "icon": "ri-markdown-line",
+                          "icon": "",
                           "collapsible": false
                         }
                       ],
@@ -742,13 +742,13 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "Main.vue", "icon": "ri-markdown-line", "collapsible": false },
+            { "label": "Main.vue", "icon": "", "collapsible": false },
             {
               "label": "Setting.pre.vue",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             },
-            { "label": "View.pre.vue", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "View.pre.vue", "icon": "", "collapsible": false }
           ],
           "folders": []
         },
@@ -758,9 +758,9 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "VueBus.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "VueI18n.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "VueLayout.ts", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "VueBus.ts", "icon": "", "collapsible": false },
+            { "label": "VueI18n.ts", "icon": "", "collapsible": false },
+            { "label": "VueLayout.ts", "icon": "", "collapsible": false }
           ],
           "folders": []
         },
@@ -770,8 +770,8 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "main.less", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "var.less", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "main.less", "icon": "", "collapsible": false },
+            { "label": "var.less", "icon": "", "collapsible": false }
           ],
           "folders": []
         },
@@ -783,12 +783,12 @@
           "files": [
             {
               "label": "frontMatter.ts",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             },
-            { "label": "index.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "links.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "statistics.ts", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "index.ts", "icon": "", "collapsible": false },
+            { "label": "links.ts", "icon": "", "collapsible": false },
+            { "label": "statistics.ts", "icon": "", "collapsible": false }
           ],
           "folders": []
         },
@@ -798,20 +798,20 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "general.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "index.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "label": "general.ts", "icon": "", "collapsible": false },
+            { "label": "index.ts", "icon": "", "collapsible": false },
             {
               "label": "notification.ts",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             },
-            { "label": "sideBar.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "label": "sideBar.ts", "icon": "", "collapsible": false },
             {
               "label": "statusPanel.ts",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             },
-            { "label": "workBench.ts", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "workBench.ts", "icon": "", "collapsible": false }
           ],
           "folders": []
         }
@@ -823,10 +823,10 @@
       "collapsible": true,
       "collapsed": true,
       "files": [
-        { "label": "document.ts", "icon": "ri-markdown-line", "collapsible": false },
-        { "label": "generics.ts", "icon": "ri-markdown-line", "collapsible": false },
-        { "label": "main.ts", "icon": "ri-markdown-line", "collapsible": false },
-        { "label": "renderer.ts", "icon": "ri-markdown-line", "collapsible": false }
+        { "label": "document.ts", "icon": "", "collapsible": false },
+        { "label": "generics.ts", "icon": "", "collapsible": false },
+        { "label": "main.ts", "icon": "", "collapsible": false },
+        { "label": "renderer.ts", "icon": "", "collapsible": false }
       ],
       "folders": [
         {
@@ -843,10 +843,10 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "markdown.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "preference.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "system.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "theme.ts", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "markdown.ts", "icon": "", "collapsible": false },
+            { "label": "preference.ts", "icon": "", "collapsible": false },
+            { "label": "system.ts", "icon": "", "collapsible": false },
+            { "label": "theme.ts", "icon": "", "collapsible": false }
           ],
           "folders": []
         },
@@ -856,20 +856,20 @@
           "collapsible": true,
           "collapsed": true,
           "files": [
-            { "label": "general.ts", "icon": "ri-markdown-line", "collapsible": false },
-            { "label": "index.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "label": "general.ts", "icon": "", "collapsible": false },
+            { "label": "index.ts", "icon": "", "collapsible": false },
             {
               "label": "notification.ts",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             },
-            { "label": "sideBar.ts", "icon": "ri-markdown-line", "collapsible": false },
+            { "label": "sideBar.ts", "icon": "", "collapsible": false },
             {
               "label": "statusPanel.ts",
-              "icon": "ri-markdown-line",
+              "icon": "",
               "collapsible": false
             },
-            { "label": "workBench.ts", "icon": "ri-markdown-line", "collapsible": false }
+            { "label": "workBench.ts", "icon": "", "collapsible": false }
           ],
           "folders": []
         }

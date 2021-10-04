@@ -1,0 +1,77 @@
+{
+  "label": "src",
+  "icon": "",
+  "collapsible": true,
+  "collapsed": true,
+  "files": [
+    { "label": ".editorconfig", "icon": "", "collapsible": false },
+    { "label": ".git", "icon": "", "collapsible": false },
+    { "label": ".github", "icon": "", "collapsible": false },
+    { "label": ".gitignore", "icon": "", "collapsible": false },
+    { "label": ".npmignore", "icon": "", "collapsible": false },
+    { "label": ".prettierrc", "icon": "", "collapsible": false },
+    { "label": "LICENSE", "icon": "", "collapsible": false },
+    { "label": "README.md", "icon": "", "collapsible": false },
+    { "label": "package.json", "icon": "", "collapsible": false },
+    { "label": "tsconfig.json", "icon": "", "collapsible": false },
+    { "label": "yarn.lock", "icon": "", "collapsible": false }
+  ],
+  "folders": [
+    {
+      "label": "demo",
+      "icon": "",
+      "collapsible": true,
+      "collapsed": true,
+      "loaded": false,
+      "folders": [],
+      "files": []
+    },
+    {
+      "label": "dist",
+      "icon": "",
+      "collapsible": true,
+      "collapsed": true,
+      "loaded": false,
+      "folders": [],
+      "files": []
+    },
+    {
+      "label": "docs",
+      "icon": "",
+      "collapsible": true,
+      "collapsed": true,
+      "loaded": false,
+      "folders": [],
+      "files": []
+    },
+    {
+      "label": "example",
+      "icon": "",
+      "collapsible": true,
+      "collapsed": true,
+      "loaded": false,
+      "folders": [],
+      "files": []
+    },
+    {
+      "label": "node_modules",
+      "icon": "",
+      "collapsible": true,
+      "collapsed": true,
+      "loaded": false,
+      "folders": [],
+      "files": []
+    },
+    {
+      "label": "script",
+      "icon": "",
+      "collapsible": true,
+      "collapsed": true,
+      "loaded": false,
+      "folders": [],
+      "files": []
+    },
+    { "label": "src", "icon": "", "collapsible": true, "collapsed": true, "loaded": false, "folders": [], "files": [] },
+    { "label": "test", "icon": "", "collapsible": true, "collapsed": true, "loaded": false, "folders": [], "files": [] }
+  ]
+}

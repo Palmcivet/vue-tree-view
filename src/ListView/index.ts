@@ -156,6 +156,7 @@ export class ListView<T> {
     this.scrollbar = new Scrollbar(this.root);
     this.container = document.createElement(tagName);
     this.container.className = `unitext-listview ${className}`;
+    this.container.tabIndex = 0;
 
     this.runway = document.createElement("div");
     this.runway.className = "listview-runway";
@@ -211,8 +212,7 @@ export class ListView<T> {
   public insertData(dataList: Array<T>, index?: number): void {
     /* 处理越界行为 */
     const maxIndex = this.sourceList.length;
-    const position =
-      index === undefined || index < 0 || index > maxIndex ? maxIndex : index;
+    const position = index === undefined || index < 0 || index > maxIndex ? maxIndex : index;
 
     /* 添加数据 */
     this.sourceList.splice(position, 0, ...dataList);
@@ -264,6 +264,16 @@ export class ListView<T> {
 
     this._stretchList();
     this._renderList();
+  }
+
+  /**
+   * @description 渲染某一项
+   * @param data 待渲染数据
+   * @param index 待渲染数据的索引
+   */
+  public renderItem(data: T, index: number): void {
+    const node = this.container.children[index + RUNWAY_COUNT] as HTMLElement;
+    this.options.renderHandler(node, data, index + RUNWAY_COUNT);
   }
 
   /**
@@ -320,6 +330,7 @@ export class ListView<T> {
 
       /* data 为空则是补足的元素 */
       if (!!data) {
+        node.dataset.index = index.toString();
         this.options.renderHandler(node, data, index - startIndex);
       }
     }
@@ -335,10 +346,7 @@ export class ListView<T> {
     const { virtualContainerHeight } = this.cachedValue;
 
     /* 越界操作 */
-    if (
-      scrollTop < 0 ||
-      scrollTop + virtualContainerHeight > this.actualContainerHeight
-    ) {
+    if (scrollTop < 0 || scrollTop + virtualContainerHeight > this.actualContainerHeight) {
       return;
     }
 

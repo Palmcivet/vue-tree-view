@@ -1,0 +1,69 @@
+.unitext-listview,
+.unitext-treeview {
+  li {
+    margin-left: 4px;
+    width: calc(100% - 8px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.unitext-treeview {
+  height: 100%;
+  line-height: 24px;
+
+  li {
+    display: flex;
+    cursor: pointer;
+
+    i {
+      font-size: 1rem;
+      width: 16px;
+      height: 100%;
+      box-sizing: content-box;
+    }
+
+    .indent {
+      display: flex;
+
+      > div {
+        width: 6px;
+        border-right: 0.1px solid transparent;
+        pointer-events: none;
+      }
+    }
+
+    .label {
+      width: 100%;
+      margin-left: 4px;
+      user-select: none;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  li:hover {
+    background: rgb(97, 97, 97);
+  }
+
+  li.active {
+    color: rgb(230, 230, 230);
+    background: rgb(110, 110, 110);
+  }
+
+  input {
+    width: 100%;
+    padding: 1px 0;
+    border-width: 0.5px 0;
+    border-style: solid;
+    border-color: white;
+    background-color: #faf9f4;
+  }
+}
+
+.unitext-treeview.hover .indent > div {
+  border-right: 0.1px solid rgb(134, 134, 134);
+}
