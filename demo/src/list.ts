@@ -23,10 +23,13 @@ export default async (context: ThisType<Window>) => {
       node.innerText = data;
       node.className = `${index}`;
     },
-    clickHandler: (event) => {
-      console.log("click", event);
-    },
   });
+
+  const clickHandler = (event) => {
+    console.info("click", event);
+  };
+
+  ListViewInstance.on("click", clickHandler);
 
   let start = 0;
   ListViewInstance.invoke();
@@ -38,9 +41,9 @@ export default async (context: ThisType<Window>) => {
   });
 
   document.getElementById("listview-del")?.addEventListener("click", () => {
-    console.log(start);
+    console.info(start);
     const res = ListViewInstance.deleteData(start, 2);
-    console.log(res);
+    console.info(res);
   });
 
   (context as any).ListViewInstance = ListViewInstance;

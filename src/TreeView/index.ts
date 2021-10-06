@@ -1,6 +1,7 @@
 import { ListView, IListViewOptions } from "../ListView";
 import { TreeNodeFile, TreeNodeFolder } from "./TreeModel";
 import { ITreeNodeFolder } from "./interface";
+import EventBus from "../EventBus";
 
 type TreeNode = TreeNodeFile | TreeNodeFolder;
 
@@ -31,28 +32,14 @@ export interface ITreeViewOptions<T> {
   /* 以下为逻辑事件处理函数 */
 
   /**
-   * @description 单击。展开文件夹/打开文件，操作的回调
-   */
-  clickHandler(...event: Array<any>): void;
-  /**
-   * @description 移动文件/文件夹。移动结束的回调
-   */
-  moveHandler(...event: Array<any>): void;
-  /**
-   * @description 删除文件/文件夹。删除结束的回调
-   */
-  deleteHandler(...event: Array<any>): void;
-  /**
-   * @description 右键。点击结束的回调
-   */
-  contextHandler(...event: Array<any>): void;
-  /**
    * @description 获取文件
    */
   fetchHandler(...event: Array<any>): Promise<ITreeNodeFolder>;
 }
 
-export class TreeView {
+export type EventType = "click" | "contextmenu" | "u-move" | "u-delete";
+
+export class TreeView extends EventBus<EventType> {
   /**
    * @description 根节点
    */
@@ -84,14 +71,12 @@ export class TreeView {
   private readonly options!: ITreeViewOptions<TreeNode>;
 
   constructor(root: HTMLElement, data: ITreeNodeFolder = DEFAULT, options?: Partial<ITreeViewOptions<TreeNode>>) {
+    super();
+
     this.options = {
       showIndent: true,
       className: "",
       listView: {},
-      clickHandler: () => {},
-      moveHandler: () => {},
-      deleteHandler: () => {},
-      contextHandler: () => {},
       fetchHandler: async () => DEFAULT,
       ...options,
     };
@@ -117,15 +102,13 @@ export class TreeView {
        */
       click: (index: number, event: MouseEvent): void => {
         const targetNode = this.nodeList[index];
+        this.activeNode = targetNode;
 
         if (targetNode.collapsible) {
           this._toggleCollpase(index, !(targetNode as TreeNodeFolder).collapsed);
         }
 
-        // TODO
-        // 此处是异步函数
-        // 回调作用还不确定
-        this.options.clickHandler(event);
+        this.emit("click", event);
       },
 
       /**
@@ -138,7 +121,7 @@ export class TreeView {
        * @param index 序号
        */
       contextmenu: (index: number): void => {
-        this.options.contextHandler(this.nodeList[index].getAncestorNode());
+        this.emit("contextmenu", this.nodeList[index].getAncestorNode());
       },
 
       keydown: (idx: number): void => {

@@ -24,6 +24,7 @@
  * - doResize()：手动更新容器尺寸
  */
 
+import EventBus from "../EventBus";
 import { Scrollbar } from "../Scrollbar";
 
 /**
@@ -64,13 +65,11 @@ export interface IListViewOptions<T> {
    * @member 节点渲染函数
    */
   renderHandler(node: HTMLElement, data: T, index: number, ...args: any[]): void;
-  /**
-   * @member 点击事件
-   */
-  clickHandler(event: MouseEvent): void;
 }
 
-export class ListView<T> {
+export type EventType = "click" | "dbclick" | "contextmenu";
+
+export class ListView<T> extends EventBus<EventType> {
   /**
    * @description 挂载的节点
    */
@@ -140,6 +139,8 @@ export class ListView<T> {
   private options!: IListViewOptions<T>;
 
   constructor(root: HTMLElement, options?: Partial<IListViewOptions<T>>) {
+    super();
+
     this.options = {
       tagName: "ul",
       className: "",
@@ -148,7 +149,6 @@ export class ListView<T> {
       itemHeight: 24,
       createHandler: () => document.createElement(tagName),
       renderHandler: () => {},
-      clickHandler: () => {},
       ...options,
     };
     const { tagName, className } = this.options;
@@ -165,12 +165,12 @@ export class ListView<T> {
   }
 
   /**
-   * @description 开始监听
+   * @description 启动函数
    */
   public invoke(): void {
     this.scrollbar.invoke();
     this.container.addEventListener("scroll", this.onScroll.bind(this));
-    this.container.addEventListener("click", this.options.clickHandler.bind(this));
+    this.container.addEventListener("click", this.onClick.bind(this));
     if (!this.options.fixedSize) {
       window.addEventListener("resize", this.onResize.bind(this));
     }
@@ -182,9 +182,10 @@ export class ListView<T> {
    * @description 清理函数
    */
   public dispose(): void {
+    this.clear();
     window.removeEventListener("resize", this.onResize);
     this.container.removeEventListener("scroll", this.onScroll);
-    this.container.removeEventListener("click", this.options.clickHandler);
+    this.container.removeEventListener("click", this.onClick);
     this.scrollbar.dispose();
     this.root.appendChild(this.container);
   }
@@ -351,6 +352,10 @@ export class ListView<T> {
     }
 
     this._renderList();
+  }
+
+  private onClick(event: Event): void {
+    this.emit("click", event);
   }
 
   /**
