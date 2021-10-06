@@ -1,5 +1,3 @@
-import { ITreeNodeFolder } from "..";
-
 /**
  * @interface 节点基本信息
  */
