@@ -3,6 +3,7 @@
   "icon": "ri-folder-2-line",
   "collapsible": true,
   "collapsed": true,
+  "loaded": true,
   "files": [
     { "label": "script.pre.js", "icon": "", "collapsible": false },
     { "label": "shims-vue.d.ts", "icon": "", "collapsible": false },
@@ -15,6 +16,7 @@
       "icon": "ri-folder-2-line",
       "collapsible": true,
       "collapsed": true,
+      "loaded": true,
       "files": [
         { "label": "env.ts", "icon": "", "collapsible": false },
         { "label": "url.ts", "icon": "", "collapsible": false },
@@ -26,6 +28,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "bus.ts", "icon": "", "collapsible": false },
             { "label": "ipc.ts", "icon": "", "collapsible": false }
@@ -37,6 +40,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "export.pre.ts", "icon": "", "collapsible": false },
             { "label": "fileState.ts", "icon": "", "collapsible": false },
@@ -49,6 +53,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "iCommon.ts", "icon": "", "collapsible": false },
             { "label": "iInterface.ts", "icon": "", "collapsible": false },
@@ -66,6 +71,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "index.ts", "icon": "", "collapsible": false },
             { "label": "sMarkdown.ts", "icon": "", "collapsible": false },
@@ -84,6 +90,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "Keybinding.ts", "icon": "", "collapsible": false },
             { "label": "Markdown.ts", "icon": "", "collapsible": false },
@@ -101,6 +108,7 @@
       "icon": "ri-folder-2-line",
       "collapsible": true,
       "collapsed": true,
+      "loaded": true,
       "files": [
         {
           "label": "atom-ripgrep.pre.js",
@@ -136,6 +144,7 @@
       "icon": "ri-folder-2-line",
       "collapsible": true,
       "collapsed": true,
+      "loaded": true,
       "files": [
         { "label": "UniText.ts", "icon": "", "collapsible": false },
         { "label": "index.ts", "icon": "", "collapsible": false }
@@ -146,6 +155,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [],
           "folders": []
         },
@@ -154,6 +164,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             {
               "label": "ImageManager.ts",
@@ -181,6 +192,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "context.ts", "icon": "", "collapsible": false },
             { "label": "dock.ts", "icon": "", "collapsible": false },
@@ -196,6 +208,7 @@
       "icon": "ri-folder-2-line",
       "collapsible": true,
       "collapsed": true,
+      "loaded": true,
       "files": [{ "label": "index.ts", "icon": "", "collapsible": false }],
       "folders": [
         {
@@ -203,6 +216,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [],
           "folders": []
         },
@@ -211,6 +225,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "CheckList.vue", "icon": "", "collapsible": false },
             {
@@ -231,6 +246,7 @@
               "icon": "ri-folder-2-line",
               "collapsible": true,
               "collapsed": true,
+              "loaded": true,
               "files": [],
               "folders": []
             },
@@ -239,6 +255,7 @@
               "icon": "ri-folder-2-line",
               "collapsible": true,
               "collapsed": true,
+              "loaded": true,
               "files": [
                 {
                   "label": "UCheckBox.vue",
@@ -279,6 +296,7 @@
               "icon": "ri-folder-2-line",
               "collapsible": true,
               "collapsed": true,
+              "loaded": true,
               "files": [
                 {
                   "label": "treeModel.ts",
@@ -310,6 +328,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [],
           "folders": [
             {
@@ -317,9 +336,8 @@
               "icon": "ri-folder-2-line",
               "collapsible": true,
               "collapsed": true,
-              "files": [
-                { "label": "Index.vue", "icon": "", "collapsible": false }
-              ],
+              "loaded": true,
+              "files": [{ "label": "Index.vue", "icon": "", "collapsible": false }],
               "folders": []
             },
             {
@@ -327,15 +345,15 @@
               "icon": "ri-folder-2-line",
               "collapsible": true,
               "collapsed": true,
-              "files": [
-                { "label": "Index.vue", "icon": "", "collapsible": false }
-              ],
+              "loaded": true,
+              "files": [{ "label": "Index.vue", "icon": "", "collapsible": false }],
               "folders": [
                 {
                   "label": "items",
                   "icon": "ri-folder-2-line",
                   "collapsible": true,
                   "collapsed": true,
+                  "loaded": true,
                   "files": [
                     {
                       "label": "Files.vue",
@@ -370,6 +388,7 @@
                   "icon": "ri-folder-2-line",
                   "collapsible": true,
                   "collapsed": true,
+                  "loaded": true,
                   "files": [
                     {
                       "label": "BaseView.vue",
@@ -396,15 +415,15 @@
               "icon": "ri-folder-2-line",
               "collapsible": true,
               "collapsed": true,
-              "files": [
-                { "label": "Index.vue", "icon": "", "collapsible": false }
-              ],
+              "loaded": true,
+              "files": [{ "label": "Index.vue", "icon": "", "collapsible": false }],
               "folders": [
                 {
                   "label": "items",
                   "icon": "ri-folder-2-line",
                   "collapsible": true,
                   "collapsed": true,
+                  "loaded": true,
                   "files": [
                     {
                       "label": "Export.vue",
@@ -429,6 +448,7 @@
                   "icon": "ri-folder-2-line",
                   "collapsible": true,
                   "collapsed": true,
+                  "loaded": true,
                   "files": [
                     {
                       "label": "AdditionCheckGroup.vue",
@@ -450,15 +470,15 @@
               "icon": "ri-folder-2-line",
               "collapsible": true,
               "collapsed": true,
-              "files": [
-                { "label": "Index.vue", "icon": "", "collapsible": false }
-              ],
+              "loaded": true,
+              "files": [{ "label": "Index.vue", "icon": "", "collapsible": false }],
               "folders": [
                 {
                   "label": "items",
                   "icon": "ri-folder-2-line",
                   "collapsible": true,
                   "collapsed": true,
+                  "loaded": true,
                   "files": [
                     {
                       "label": "Message.vue",
@@ -498,6 +518,7 @@
                   "icon": "ri-folder-2-line",
                   "collapsible": true,
                   "collapsed": true,
+                  "loaded": true,
                   "files": [
                     {
                       "label": "CheckItem.vue",
@@ -524,9 +545,8 @@
               "icon": "ri-folder-2-line",
               "collapsible": true,
               "collapsed": true,
-              "files": [
-                { "label": "Index.vue", "icon": "", "collapsible": false }
-              ],
+              "loaded": true,
+              "files": [{ "label": "Index.vue", "icon": "", "collapsible": false }],
               "folders": []
             },
             {
@@ -534,15 +554,15 @@
               "icon": "ri-folder-2-line",
               "collapsible": true,
               "collapsed": true,
-              "files": [
-                { "label": "Index.vue", "icon": "", "collapsible": false }
-              ],
+              "loaded": true,
+              "files": [{ "label": "Index.vue", "icon": "", "collapsible": false }],
               "folders": [
                 {
                   "label": "Schedule",
                   "icon": "ri-folder-2-line",
                   "collapsible": true,
                   "collapsed": true,
+                  "loaded": true,
                   "files": [],
                   "folders": []
                 },
@@ -551,6 +571,7 @@
                   "icon": "ri-folder-2-line",
                   "collapsible": true,
                   "collapsed": true,
+                  "loaded": true,
                   "files": [
                     {
                       "label": ".DS_Store",
@@ -569,6 +590,7 @@
                       "icon": "ri-folder-2-line",
                       "collapsible": true,
                       "collapsed": true,
+                      "loaded": true,
                       "files": [
                         {
                           "label": "Keybinding.pre.vue",
@@ -608,6 +630,7 @@
                       "icon": "ri-folder-2-line",
                       "collapsible": true,
                       "collapsed": true,
+                      "loaded": true,
                       "files": [
                         {
                           "label": "DropDown.vue",
@@ -649,6 +672,7 @@
                   "icon": "ri-folder-2-line",
                   "collapsible": true,
                   "collapsed": true,
+                  "loaded": true,
                   "files": [
                     {
                       "label": "Index.vue",
@@ -663,6 +687,7 @@
                   "icon": "ri-folder-2-line",
                   "collapsible": true,
                   "collapsed": true,
+                  "loaded": true,
                   "files": [
                     {
                       "label": "CloseIcon.vue",
@@ -681,6 +706,7 @@
                       "icon": "ri-folder-2-line",
                       "collapsible": true,
                       "collapsed": true,
+                      "loaded": true,
                       "files": [],
                       "folders": []
                     },
@@ -689,6 +715,7 @@
                       "icon": "ri-folder-2-line",
                       "collapsible": true,
                       "collapsed": true,
+                      "loaded": true,
                       "files": [
                         {
                           "label": "Index.vue",
@@ -713,6 +740,7 @@
                       "icon": "ri-folder-2-line",
                       "collapsible": true,
                       "collapsed": true,
+                      "loaded": true,
                       "files": [],
                       "folders": []
                     },
@@ -721,6 +749,7 @@
                       "icon": "ri-folder-2-line",
                       "collapsible": true,
                       "collapsed": true,
+                      "loaded": true,
                       "files": [
                         {
                           "label": "Index.pre.vue",
@@ -741,6 +770,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "Main.vue", "icon": "", "collapsible": false },
             {
@@ -757,6 +787,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "VueBus.ts", "icon": "", "collapsible": false },
             { "label": "VueI18n.ts", "icon": "", "collapsible": false },
@@ -769,6 +800,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "main.less", "icon": "", "collapsible": false },
             { "label": "var.less", "icon": "", "collapsible": false }
@@ -780,6 +812,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             {
               "label": "frontMatter.ts",
@@ -797,6 +830,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "general.ts", "icon": "", "collapsible": false },
             { "label": "index.ts", "icon": "", "collapsible": false },
@@ -822,6 +856,7 @@
       "icon": "ri-folder-2-line",
       "collapsible": true,
       "collapsed": true,
+      "loaded": true,
       "files": [
         { "label": "document.ts", "icon": "", "collapsible": false },
         { "label": "generics.ts", "icon": "", "collapsible": false },
@@ -834,6 +869,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [],
           "folders": []
         },
@@ -842,6 +878,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "markdown.ts", "icon": "", "collapsible": false },
             { "label": "preference.ts", "icon": "", "collapsible": false },
@@ -855,6 +892,7 @@
           "icon": "ri-folder-2-line",
           "collapsible": true,
           "collapsed": true,
+          "loaded": true,
           "files": [
             { "label": "general.ts", "icon": "", "collapsible": false },
             { "label": "index.ts", "icon": "", "collapsible": false },
