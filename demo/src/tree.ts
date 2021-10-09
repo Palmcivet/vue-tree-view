@@ -50,5 +50,13 @@ export default async (context: ThisType<Window>) => {
   TreeViewInstance.on("contextmenu", onContextMenu);
   TreeViewInstance.invoke();
 
+  document.getElementById("treeview-close")?.addEventListener("click", () => {
+    TreeViewInstance.toggleAll(false);
+  });
+
+  document.getElementById("treeview-close-all")?.addEventListener("click", () => {
+    TreeViewInstance.toggleAll(true);
+  });
+
   (context as any).TreeViewInstance = TreeViewInstance;
 };

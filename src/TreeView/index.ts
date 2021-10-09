@@ -161,7 +161,22 @@ export class TreeView extends EventBus<EventType> {
    * @description 收起所有文件
    * @param isAll 是否递归收拢
    */
-  public toggleAll(isAll: boolean): void {}
+  public toggleAll(isAll: boolean = false): void {
+    const walkThrough = (model: TreeNodeFolder, flag = true) => {
+      model.folders.forEach((subModel) => {
+        subModel.setCollapsible(true);
+        if (flag) {
+          walkThrough(subModel);
+        }
+      });
+    };
+
+    walkThrough(this.treeModel!, isAll);
+
+    const length = this.nodeList.length;
+    this.nodeList.splice(0, length, ...this._getNodeList(this.treeModel!));
+    this._render();
+  }
 
   /**
    * @description 开关文件夹
