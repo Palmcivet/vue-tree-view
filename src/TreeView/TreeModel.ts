@@ -20,7 +20,7 @@ export class TreeNodeFile implements ITreeNodeFile {
    * @description 递归获取祖先节点
    */
   getAncestorNode(): TreeNodeFolder | null {
-    if (this.parentNode !== null) {
+    if (this.parentNode !== null && this.parentNode.parentNode !== null) {
       return this.parentNode.getAncestorNode();
     } else {
       return this.parentNode;
