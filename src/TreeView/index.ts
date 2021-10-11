@@ -127,13 +127,80 @@ export class TreeView extends EventBus<EventType> {
       keydown: (idx: number): void => {
         // rename
       },
+
+      /* 拖拽元素 */
+
+      dragstart: (index: number, event: DragEvent): boolean => {
+        console.log("dragstart", index);
+
+        if (event.dataTransfer === null) {
+          return false;
+        }
+
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text", index.toString());
+
+        const target = event.target as HTMLElement;
+        target.style.opacity = ".5";
+
+        return true;
+      },
+
+      drag: (index: number, event: DragEvent): boolean => {
+        event.preventDefault();
+        return false;
+      },
+
+      dragend: (index: number, event: DragEvent): void => {
+        console.log("dragend");
+
+        const target = event.target as HTMLElement;
+        target.style.opacity = "";
+      },
+
+      /* 目标元素 */
+
+      dragenter: (index: number, event: DragEvent): void => {
+        event.preventDefault();
+        const target = event.target as HTMLElement;
+        target.style.backgroundColor = "#465a6a";
+      },
+
+      dragover: (index: number, event: DragEvent): boolean => {
+        event.preventDefault();
+        return false;
+      },
+
+      dragleave: (index: number, event: DragEvent): void => {
+        console.log("leave");
+
+        const target = event.target as HTMLElement;
+        target.style.backgroundColor = "";
+      },
+
+      drogexit: (index: number, event: DragEvent): void => {
+        console.log("dropexit");
+      },
+
+      drop: (index: number, event: DragEvent): void => {
+        console.log("drop");
+        const target = event.target as HTMLElement;
+        target.style.backgroundColor = "";
+
+        const dstIndex = Number.parseInt(event.dataTransfer?.getData("text")!);
+        const srcNode = this.nodeList[index];
+        const dstNode = this.nodeList[dstIndex];
+        this.nodeList[index] = dstNode;
+        this.nodeList[dstIndex] = srcNode;
+        this._render();
+      },
     };
 
     for (const eventName in EVENT_MAP) {
       this.root.addEventListener(eventName, (event) => {
         const target = event.target as HTMLElement;
-        if (["DIV", "I"].includes(target.nodeName)) {
-          const index = Number.parseInt(target.parentElement!.dataset.index!);
+        if (["LI"].includes(target.nodeName)) {
+          const index = Number.parseInt(target.dataset.index!);
           EVENT_MAP[eventName].call(this, index, event);
         }
       });

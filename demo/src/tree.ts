@@ -12,6 +12,7 @@ export default async (context: ThisType<Window>) => {
     listView: {
       createHandler: () => {
         const node = document.createElement("li");
+        node.className = "unitext-treeview__item";
         node.innerHTML = `
   <div class="indent"></div>
   <i class="twist"></i>
@@ -33,12 +34,12 @@ export default async (context: ThisType<Window>) => {
           node.children[1].className = "";
           node.children[2].className = "ri-markdown-line"; // FEAT icon
         }
-        node.children[3].innerHTML = indent + "-" + data.label;
+        node.children[3].innerHTML = data.label;
       },
     },
   });
 
-  const onClick = (event) => {
+  const onClick = (event: Event) => {
     console.info(event);
   };
 

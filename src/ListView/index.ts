@@ -63,11 +63,11 @@ export interface IListViewOptions<T> {
   createHandler(): HTMLElement;
   /**
    * @member 节点渲染函数
-   * @param node DOM 节点
+   * @param element DOM 元素节点
    * @param data 数据
    * @param index 数据的逻辑索引
    */
-  renderHandler(node: HTMLElement, data: T, index: number, ...args: any[]): void;
+  renderHandler(element: HTMLElement, data: T, index: number, ...args: any[]): void;
 }
 
 export type EventType = "click" | "dbclick" | "contextmenu";
@@ -259,12 +259,12 @@ export class ListView<T> extends EventBus<EventType> {
       this.container.removeChild(children[index]);
     }
 
-    const nodes = [];
+    const elements = [];
     const { virtualItemCount } = this;
     for (let index = 0; index < virtualItemCount; index++) {
-      nodes.push(this.options.createHandler());
+      elements.push(this.options.createHandler());
     }
-    this.container.append(...nodes);
+    this.container.append(...elements);
 
     if (this.sourceList.length <= virtualItemCount) {
       this.container.scrollTo({ top: 0 });
@@ -283,9 +283,9 @@ export class ListView<T> extends EventBus<EventType> {
     const { itemHeight } = this.options;
     const scrolledTop = this.container.scrollTop;
     const startIndex = Math.floor(scrolledTop / itemHeight);
-    const nodeIndex = index - startIndex;
-    const node = this.container.children[nodeIndex + RUNWAY_COUNT] as HTMLElement;
-    this.options.renderHandler(node, data, nodeIndex + RUNWAY_COUNT);
+    const elementIndex = index - startIndex;
+    const element = this.container.children[elementIndex + RUNWAY_COUNT] as HTMLElement;
+    this.options.renderHandler(element, data, elementIndex + RUNWAY_COUNT);
   }
 
   /**
@@ -330,18 +330,19 @@ export class ListView<T> extends EventBus<EventType> {
     const virtualList = this.sourceList.slice(startIndex, endIndex);
 
     for (let index = 0; index < virtualItemCount; index++) {
-      const node = actualList[index + RUNWAY_COUNT] as HTMLElement;
+      const element = actualList[index + RUNWAY_COUNT] as HTMLElement;
       const x = 0;
       const y = scrolledTop + index * itemHeight - offset;
-      node.style.transform = `translate(${x}px, ${y}px)`;
+      element.style.transform = `translate(${x}px, ${y}px)`;
+      element.draggable = true;
 
       const data = virtualList[index];
 
       /* data 为空则是补足的元素 */
       if (!!data) {
         const actualIndex = index + startIndex;
-        node.dataset.index = actualIndex.toString();
-        this.options.renderHandler(node, data, actualIndex);
+        element.dataset.index = actualIndex.toString();
+        this.options.renderHandler(element, data, actualIndex);
       }
     }
   }
@@ -381,11 +382,11 @@ export class ListView<T> extends EventBus<EventType> {
         DSURPLUS_COUNT -
         (this.container.children.length - RUNWAY_COUNT);
 
-      const nodes = [];
+      const elements = [];
       for (let index = 0; index < count; index++) {
-        nodes.push(this.options.createHandler());
+        elements.push(this.options.createHandler());
       }
-      this.container.append(...nodes);
+      this.container.append(...elements);
     }
 
     if (cachedHeight > actualHeight) {
