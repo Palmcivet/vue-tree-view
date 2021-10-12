@@ -1,5 +1,5 @@
 {
-  "name": "@palmcivet/tree-view",
+  "name": "@palmcivet/unitext-tree-view",
   "version": "0.2.2",
   "description": "a tree-view component that imitate VSCode",
   "author": "Palm Civet <palmcivet_email@qq.com>",
@@ -9,10 +9,11 @@
   "files": [
     "dist/"
   ],
-  "repository": "https://github.com/palmcivet/tree-view.git",
-  "bugs": "https://github.com/palmcivet/tree-view/issues",
-  "homepage": "https://github.com/palmcivet/tree-view",
+  "repository": "https://github.com/palmcivet/unitext-tree-view.git",
+  "bugs": "https://github.com/palmcivet/unitext-tree-view/issues",
+  "homepage": "https://github.com/palmcivet/unitext-tree-view",
   "keywords": [
+    "UniText",
     "TreeView",
     "ListView",
     "VSCode"
@@ -22,8 +23,7 @@
     "tsc": "tsc",
     "build": "node script/build.js"
   },
-  "devDependencies": {},
-  "dependencies": {
+  "devDependencies": {
     "less": "^4.1.2",
     "typescript": "^4.5.4",
     "vite": "^2.7.10"
