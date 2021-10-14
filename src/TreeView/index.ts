@@ -5,7 +5,7 @@ import EventBus from "../EventBus";
 
 type TreeNode = TreeNodeFile | TreeNodeFolder;
 
-const DEFAULT = {
+const DEFAULT_MODEL = {
   label: "",
   icon: "",
   collapsible: true,
@@ -13,6 +13,12 @@ const DEFAULT = {
   loaded: false,
   files: [],
   folders: [],
+};
+
+const CLASS_NAME = {
+  root: "unitext-treeview",
+  dragSrc: "unitext-treeview__drag-src",
+  dragDst: "unitext-treeview__drag-dst",
 };
 
 export interface ITreeViewOptions<T> {
@@ -70,20 +76,20 @@ export class TreeView extends EventBus<EventType> {
    */
   private readonly options!: ITreeViewOptions<TreeNode>;
 
-  constructor(root: HTMLElement, data: ITreeNodeFolder = DEFAULT, options?: Partial<ITreeViewOptions<TreeNode>>) {
+  constructor(root: HTMLElement, data: ITreeNodeFolder = DEFAULT_MODEL, options?: Partial<ITreeViewOptions<TreeNode>>) {
     super();
 
     this.options = {
       showIndent: true,
       className: "",
       listView: {},
-      fetchHandler: async () => DEFAULT,
+      fetchHandler: async () => DEFAULT_MODEL,
       ...options,
     };
 
     const { className, listView } = this.options;
     this.root = root;
-    this.root.className = `unitext-treeview ${className}`;
+    this.root.className = `${CLASS_NAME.root} ${className}`;
     this.treeModel = new TreeNodeFolder(data, null);
     this.listView = new ListView(root, { ...listView });
     this.nodeList = this._getNodeList(this.treeModel);
@@ -141,7 +147,7 @@ export class TreeView extends EventBus<EventType> {
         event.dataTransfer.setData("text", index.toString());
 
         const target = event.target as HTMLElement;
-        target.style.opacity = ".5";
+        target.classList.add(CLASS_NAME.dragSrc);
 
         return true;
       },
@@ -155,7 +161,7 @@ export class TreeView extends EventBus<EventType> {
         console.log("dragend");
 
         const target = event.target as HTMLElement;
-        target.style.opacity = "";
+        target.classList.remove(CLASS_NAME.dragSrc);
       },
 
       /* 目标元素 */
@@ -163,7 +169,7 @@ export class TreeView extends EventBus<EventType> {
       dragenter: (index: number, event: DragEvent): void => {
         event.preventDefault();
         const target = event.target as HTMLElement;
-        target.style.backgroundColor = "#465a6a";
+        target.classList.add(CLASS_NAME.dragDst);
       },
 
       dragover: (index: number, event: DragEvent): boolean => {
@@ -175,7 +181,7 @@ export class TreeView extends EventBus<EventType> {
         console.log("leave");
 
         const target = event.target as HTMLElement;
-        target.style.backgroundColor = "";
+        target.classList.remove(CLASS_NAME.dragDst);
       },
 
       drogexit: (index: number, event: DragEvent): void => {
@@ -185,7 +191,7 @@ export class TreeView extends EventBus<EventType> {
       drop: (index: number, event: DragEvent): void => {
         console.log("drop");
         const target = event.target as HTMLElement;
-        target.style.backgroundColor = "";
+        target.classList.remove(CLASS_NAME.dragDst);
 
         const dstIndex = Number.parseInt(event.dataTransfer?.getData("text")!);
         const srcNode = this.nodeList[index];

@@ -41,9 +41,7 @@ export default async (context: ThisType<Window>) => {
   });
 
   document.getElementById("listview-del")?.addEventListener("click", () => {
-    console.info(start);
-    const res = ListViewInstance.deleteData(start, 2);
-    console.info(res);
+    ListViewInstance.deleteData(start, 1);
   });
 
   (context as any).ListViewInstance = ListViewInstance;

@@ -31,6 +31,9 @@ import { Scrollbar } from "../Scrollbar";
  * @var 为实现平滑滚动而补足的数据项数量
  */
 const DSURPLUS_COUNT = 0;
+/**
+ * @var 跑道的魔数，计算时需去除该数目
+ */
 const RUNWAY_COUNT = 1;
 
 export interface IListViewOptions<T> {
@@ -254,9 +257,9 @@ export class ListView<T> extends EventBus<EventType> {
     }
 
     /* 更新 DOM */
-    const children = this.container.children;
-    for (let index = children.length - 1; index > RUNWAY_COUNT; index--) {
-      this.container.removeChild(children[index]);
+    const actualList = this.container.children;
+    for (let index = actualList.length - 1; index > RUNWAY_COUNT; index--) {
+      this.container.removeChild(actualList[index]);
     }
 
     const elements = [];
@@ -347,6 +350,9 @@ export class ListView<T> extends EventBus<EventType> {
     }
   }
 
+  /**
+   * @description 清理无用 DOM 元素
+   */
   private _recycleList(): void {}
 
   /**
