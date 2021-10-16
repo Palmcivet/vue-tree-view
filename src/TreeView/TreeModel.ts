@@ -122,7 +122,7 @@ export class TreeNodeFolder extends TreeNodeFile implements ITreeNodeFolder {
    * @description 异步加载数据
    * @param model 传入的数据
    */
-  loadFolder(model: ITreeNodeFolder): void {
+  loadModel(model: ITreeNodeFolder): void {
     this._initModel(model);
     this.loaded = true;
   }

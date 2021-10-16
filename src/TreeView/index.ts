@@ -49,12 +49,12 @@ export class TreeView extends EventBus<EventType> {
   /**
    * @description 根节点
    */
-  private readonly root!: HTMLElement;
+  private readonly root: HTMLElement;
 
   /**
    * @field 树的数据模型
    */
-  private readonly treeModel!: TreeNodeFolder | null;
+  private readonly treeModel: TreeNodeFolder;
 
   /**
    * @field 需要渲染的项目列表，包含文件/文件夹
@@ -64,7 +64,7 @@ export class TreeView extends EventBus<EventType> {
   /**
    * @field 渲染列表的容器
    */
-  private readonly listView!: ListView<TreeNode>;
+  private readonly listView: ListView<TreeNode>;
 
   /**
    * @field 当前焦点
@@ -76,7 +76,7 @@ export class TreeView extends EventBus<EventType> {
    */
   private readonly options!: ITreeViewOptions<TreeNode>;
 
-  constructor(root: HTMLElement, data: ITreeNodeFolder = DEFAULT_MODEL, options?: Partial<ITreeViewOptions<TreeNode>>) {
+  constructor(root: HTMLElement, options?: Partial<ITreeViewOptions<TreeNode>>, data: ITreeNodeFolder = DEFAULT_MODEL) {
     super();
 
     this.options = {
@@ -231,6 +231,13 @@ export class TreeView extends EventBus<EventType> {
   public updateOptions(): void {}
 
   /**
+   * @description 更新文件夹
+   */
+  public updateData(dataModel: TreeNodeFolder): void {
+    this.treeModel?.loadModel(dataModel);
+  }
+
+  /**
    * @description 收起所有文件
    * @param isAll 是否递归收拢
    */
@@ -267,7 +274,7 @@ export class TreeView extends EventBus<EventType> {
       this.listView.renderItem(target, index);
       if (!target.getLoadStatus()) {
         const data = await this.options.fetchHandler();
-        target.loadFolder(data);
+        target.loadModel(data);
       }
       this.nodeList.splice(index + 1, 0, ...this._getNodeList(target));
     }

@@ -79,22 +79,22 @@ export class ListView<T> extends EventBus<EventType> {
   /**
    * @description 挂载的节点
    */
-  private readonly root!: HTMLElement;
+  private readonly root: HTMLElement;
 
   /**
    * @description 容器的节点
    */
-  private readonly container!: HTMLElement;
+  private readonly container: HTMLElement;
 
   /**
    * @description 撑开容器的元素
    */
-  private readonly runway!: HTMLDivElement;
+  private readonly runway: HTMLDivElement;
 
   /**
    * @description 滚动条
    */
-  private readonly scrollbar!: Scrollbar;
+  private readonly scrollbar: Scrollbar;
 
   /**
    * @description  缓存尺寸以减少 DOM 渲染
