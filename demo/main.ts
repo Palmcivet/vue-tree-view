@@ -1,6 +1,7 @@
 import Monitor from "./src/monitor";
 import ListViewDemo from "./src/list";
 import TreeViewDemo from "./src/tree";
+import "./src/theme.less";
 import "./style.less";
 
 ((context: ThisType<Window>) => {

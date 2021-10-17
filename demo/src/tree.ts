@@ -1,6 +1,4 @@
 import { TreeView } from "../../src/TreeView";
-import "../../src/TreeView/index.less";
-import "./theme.less";
 
 export default async (context: ThisType<Window>) => {
   const TreeData = await (await fetch("data/tree-level-1.json")).json();
@@ -13,8 +11,7 @@ export default async (context: ThisType<Window>) => {
       },
       listView: {
         createHandler: () => {
-          const node = document.createElement("li");
-          node.className = "unitext-treeview__item";
+          const node = document.createElement("div");
           node.innerHTML = `
   <div class="indent"></div>
   <i class="twist"></i>

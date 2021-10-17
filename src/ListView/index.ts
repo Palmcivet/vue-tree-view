@@ -24,6 +24,7 @@
  * - doResize()：手动更新容器尺寸
  */
 
+import { prefix } from "../config";
 import EventBus from "../EventBus";
 import { Scrollbar } from "../Scrollbar";
 
@@ -35,6 +36,35 @@ const DSURPLUS_COUNT = 0;
  * @var 跑道的魔数，计算时需去除该数目
  */
 const RUNWAY_COUNT = 1;
+/**
+ * @var 跑道的尺寸（宽和高）
+ */
+const RUNWAY_SIZE = 1;
+
+const CLASS_NAME = {
+  Root: "unitext-listview",
+  Item: `${prefix}-list__item`,
+  Runway: `${prefix}-list__runway`,
+  Container: `${prefix}-list__wrapper`,
+};
+
+const createItem = (handler: () => HTMLElement): HTMLElement => {
+  const element = handler();
+  element.style.pointerEvents = "none";
+  element.className = CLASS_NAME.Item;
+
+  const itemElement = document.createElement("li");
+  itemElement.style.position = "absolute";
+  itemElement.style.willChange = "transform";
+  itemElement.style.cursor = "pointer";
+  itemElement.style.width = "100%";
+  itemElement.appendChild(element);
+  return itemElement;
+};
+
+const getItem = (element: HTMLElement): HTMLElement => {
+  return element.firstElementChild as HTMLElement;
+};
 
 export interface IListViewOptions<T> {
   /**
@@ -45,6 +75,10 @@ export interface IListViewOptions<T> {
    * @member 自定义容器的类名
    */
   className: string;
+  /**
+   * @member 是否可拖拽
+   */
+  draggable: boolean;
   /**
    * @member 滚动条是否可隐藏
    */
@@ -57,9 +91,6 @@ export interface IListViewOptions<T> {
    * @member 容器宽度是否固定
    */
   fixedSize: boolean;
-
-  /* 以下为回调函数 */
-
   /**
    * @member 节点创建函数
    */
@@ -101,14 +132,6 @@ export class ListView<T> extends EventBus<EventType> {
    */
   private readonly cachedValue = {
     /**
-     * @description 占位区块的高
-     */
-    runwayHeight: 0,
-    /**
-     * @description 占位区块的宽
-     */
-    runwayWidth: 0,
-    /**
      * @description 滚动条宽度
      */
     scrollbarWidth: 0,
@@ -149,9 +172,10 @@ export class ListView<T> extends EventBus<EventType> {
 
     this.options = {
       tagName: "ul",
-      className: "",
+      className: CLASS_NAME.Container,
       suppressible: true,
-      fixedSize: false,
+      draggable: true,
+      fixedSize: true,
       itemHeight: 24,
       createHandler: () => document.createElement(tagName),
       renderHandler: () => {},
@@ -159,13 +183,21 @@ export class ListView<T> extends EventBus<EventType> {
     };
     const { tagName, className } = this.options;
     this.root = root;
+    this.root.classList.add(CLASS_NAME.Root);
     this.scrollbar = new Scrollbar(this.root);
     this.container = document.createElement(tagName);
-    this.container.className = `unitext-listview ${className}`;
+    this.container.classList.add(className);
     this.container.tabIndex = 0;
-
+    this.container.style.width = "100%";
+    this.container.style.height = "100%";
+    this.container.style.overflowY = "auto";
+    this.container.style.position = "relative";
     this.runway = document.createElement("div");
-    this.runway.className = "listview-runway";
+    this.runway.className = CLASS_NAME.Runway;
+    this.runway.style.width = `${RUNWAY_SIZE}px`;
+    this.runway.style.height = `${RUNWAY_SIZE}px`;
+    this.runway.style.position = "absolute";
+    this.runway.style.willChange = "transform";
     this.container.appendChild(this.runway);
     this.root.appendChild(this.container);
   }
@@ -193,6 +225,7 @@ export class ListView<T> extends EventBus<EventType> {
     this.container.removeEventListener("scroll", this.onScroll);
     this.container.removeEventListener("click", this.onClick);
     this.scrollbar.dispose();
+    this.root.classList.remove(CLASS_NAME.Root);
     this.root.appendChild(this.container);
   }
 
@@ -265,7 +298,7 @@ export class ListView<T> extends EventBus<EventType> {
     const elements = [];
     const { virtualItemCount } = this;
     for (let index = 0; index < virtualItemCount; index++) {
-      elements.push(this.options.createHandler());
+      elements.push(createItem(this.options.createHandler));
     }
     this.container.append(...elements);
 
@@ -288,7 +321,7 @@ export class ListView<T> extends EventBus<EventType> {
     const startIndex = Math.floor(scrolledTop / itemHeight);
     const elementIndex = index - startIndex;
     const element = this.container.children[elementIndex + RUNWAY_COUNT] as HTMLElement;
-    this.options.renderHandler(element, data, elementIndex + RUNWAY_COUNT);
+    this.options.renderHandler(getItem(element), data, elementIndex + RUNWAY_COUNT);
   }
 
   /**
@@ -301,10 +334,7 @@ export class ListView<T> extends EventBus<EventType> {
   /**
    * @description 测量尺寸
    */
-  private _measureSize(): void {
-    this.cachedValue.runwayHeight = this.runway.clientHeight;
-    this.cachedValue.runwayWidth = this.runway.clientWidth;
-  }
+  private _measureSize(): void {}
 
   /***
    * @description 撑开容器
@@ -337,7 +367,9 @@ export class ListView<T> extends EventBus<EventType> {
       const x = 0;
       const y = scrolledTop + index * itemHeight - offset;
       element.style.transform = `translate(${x}px, ${y}px)`;
-      element.draggable = true;
+      if (this.options.draggable) {
+        element.draggable = true;
+      }
 
       const data = virtualList[index];
 
@@ -345,7 +377,7 @@ export class ListView<T> extends EventBus<EventType> {
       if (!!data) {
         const actualIndex = index + startIndex;
         element.dataset.index = actualIndex.toString();
-        this.options.renderHandler(element, data, actualIndex);
+        this.options.renderHandler(getItem(element), data, actualIndex);
       }
     }
   }
@@ -390,7 +422,7 @@ export class ListView<T> extends EventBus<EventType> {
 
       const elements = [];
       for (let index = 0; index < count; index++) {
-        elements.push(this.options.createHandler());
+        elements.push(createItem(this.options.createHandler));
       }
       this.container.append(...elements);
     }

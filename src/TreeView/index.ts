@@ -2,6 +2,7 @@ import { ListView, IListViewOptions } from "../ListView";
 import { TreeNodeFile, TreeNodeFolder } from "./TreeModel";
 import { ITreeNodeFolder } from "./interface";
 import EventBus from "../EventBus";
+import { prefix } from "../config";
 
 type TreeNode = TreeNodeFile | TreeNodeFolder;
 
@@ -16,9 +17,9 @@ const DEFAULT_MODEL = {
 };
 
 const CLASS_NAME = {
-  root: "unitext-treeview",
-  dragSrc: "unitext-treeview__drag-src",
-  dragDst: "unitext-treeview__drag-dst",
+  Root: "unitext-treeview",
+  DragSource: `${prefix}-tree__drag-source`,
+  DragTarget: `${prefix}-tree__drag-target`,
 };
 
 export interface ITreeViewOptions<T> {
@@ -27,16 +28,9 @@ export interface ITreeViewOptions<T> {
    */
   showIndent: boolean;
   /**
-   * @description 自定义容器的类名
-   */
-  className: string;
-  /**
    * @description 透传 ListView 的配置项
    */
   listView: Partial<IListViewOptions<T>>;
-
-  /* 以下为逻辑事件处理函数 */
-
   /**
    * @description 获取文件
    */
@@ -57,14 +51,14 @@ export class TreeView extends EventBus<EventType> {
   private readonly treeModel: TreeNodeFolder;
 
   /**
-   * @field 需要渲染的项目列表，包含文件/文件夹
-   */
-  private readonly nodeList: Array<TreeNode> = [];
-
-  /**
    * @field 渲染列表的容器
    */
   private readonly listView: ListView<TreeNode>;
+
+  /**
+   * @field 需要渲染的项目列表，包含文件/文件夹
+   */
+  private readonly nodeList: Array<TreeNode> = [];
 
   /**
    * @field 当前焦点
@@ -81,18 +75,17 @@ export class TreeView extends EventBus<EventType> {
 
     this.options = {
       showIndent: true,
-      className: "",
       listView: {},
       fetchHandler: async () => DEFAULT_MODEL,
       ...options,
     };
 
-    const { className, listView } = this.options;
+    const { listView } = this.options;
     this.root = root;
-    this.root.className = `${CLASS_NAME.root} ${className}`;
+    this.root.classList.add(CLASS_NAME.Root);
     this.treeModel = new TreeNodeFolder(data, null);
     this.listView = new ListView(root, { ...listView });
-    this.nodeList = this._getNodeList(this.treeModel);
+    this.nodeList = [];
   }
 
   /**
@@ -147,7 +140,7 @@ export class TreeView extends EventBus<EventType> {
         event.dataTransfer.setData("text", index.toString());
 
         const target = event.target as HTMLElement;
-        target.classList.add(CLASS_NAME.dragSrc);
+        target.classList.add(CLASS_NAME.DragSource);
 
         return true;
       },
@@ -161,7 +154,7 @@ export class TreeView extends EventBus<EventType> {
         console.log("dragend");
 
         const target = event.target as HTMLElement;
-        target.classList.remove(CLASS_NAME.dragSrc);
+        target.classList.remove(CLASS_NAME.DragSource);
       },
 
       /* 目标元素 */
@@ -169,7 +162,7 @@ export class TreeView extends EventBus<EventType> {
       dragenter: (index: number, event: DragEvent): void => {
         event.preventDefault();
         const target = event.target as HTMLElement;
-        target.classList.add(CLASS_NAME.dragDst);
+        target.classList.add(CLASS_NAME.DragTarget);
       },
 
       dragover: (index: number, event: DragEvent): boolean => {
@@ -181,7 +174,7 @@ export class TreeView extends EventBus<EventType> {
         console.log("leave");
 
         const target = event.target as HTMLElement;
-        target.classList.remove(CLASS_NAME.dragDst);
+        target.classList.remove(CLASS_NAME.DragTarget);
       },
 
       drogexit: (index: number, event: DragEvent): void => {
@@ -191,7 +184,7 @@ export class TreeView extends EventBus<EventType> {
       drop: (index: number, event: DragEvent): void => {
         console.log("drop");
         const target = event.target as HTMLElement;
-        target.classList.remove(CLASS_NAME.dragDst);
+        target.classList.remove(CLASS_NAME.DragTarget);
 
         const dstIndex = Number.parseInt(event.dataTransfer?.getData("text")!);
         const srcNode = this.nodeList[index];
@@ -205,13 +198,12 @@ export class TreeView extends EventBus<EventType> {
     for (const eventName in EVENT_MAP) {
       this.root.addEventListener(eventName, (event) => {
         const target = event.target as HTMLElement;
-        if (["LI"].includes(target.nodeName)) {
-          const index = Number.parseInt(target.dataset.index!);
-          EVENT_MAP[eventName].call(this, index, event);
-        }
+        const index = Number.parseInt(target.dataset.index!);
+        EVENT_MAP[eventName].call(this, index, event);
       });
     }
 
+    this.nodeList.splice(0, length, ...this._getNodeList(this.treeModel));
     this._render();
   }
 
@@ -220,6 +212,7 @@ export class TreeView extends EventBus<EventType> {
    */
   public dispose(): void {
     this.listView.dispose();
+    this.root.classList.remove(CLASS_NAME.Root);
     for (let index = 0; index < this.root.children.length; index++) {
       this.root.removeChild(this.root.children[index]);
     }
@@ -235,6 +228,9 @@ export class TreeView extends EventBus<EventType> {
    */
   public updateData(dataModel: TreeNodeFolder): void {
     this.treeModel?.loadModel(dataModel);
+    const { length } = this.nodeList;
+    this.nodeList.splice(0, length, ...this._getNodeList(this.treeModel));
+    this._render();
   }
 
   /**

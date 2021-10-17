@@ -1,6 +1,4 @@
 import { ListView } from "../../src/ListView";
-import "../../src/ListView/index.less";
-import "./theme.less";
 
 export default async (context: ThisType<Window>) => {
   const ListData = await (await fetch("/data/list.json")).json();

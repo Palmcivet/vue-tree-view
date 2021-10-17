@@ -1,6 +1,5 @@
-.unitext-listview,
-.unitext-treeview {
-  li {
+.unitext-listview {
+  .u-list__item {
     margin-left: 4px;
     width: calc(100% - 8px);
     overflow: hidden;
@@ -14,18 +13,17 @@
   line-height: 24px;
 
   &__drag {
-    &-src {
+    &-source {
       opacity: 0.6;
     }
 
-    &-dst {
+    &-target {
       background-color: #465a6a;
     }
   }
 
-  li {
+  .u-list__item {
     display: flex;
-    cursor: pointer;
 
     i {
       font-size: 1rem;
@@ -53,15 +51,15 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-  }
 
-  li:hover {
-    background: rgb(97, 97, 97);
-  }
+    &:hover {
+      background: rgb(97, 97, 97);
+    }
 
-  li.active {
-    color: rgb(230, 230, 230);
-    background: rgb(110, 110, 110);
+    &.active {
+      color: rgb(230, 230, 230);
+      background: rgb(110, 110, 110);
+    }
   }
 
   input {
