@@ -9,33 +9,6 @@ export default async (context: ThisType<Window>) => {
       fetchHandler: async () => {
         return await (await fetch("data/tree-level-1.json")).json();
       },
-      listView: {
-        createHandler: () => {
-          const node = document.createElement("div");
-          node.innerHTML = `
-  <div class="indent"></div>
-  <i class="twist"></i>
-  <i class="icon"></i>
-  <div class="label"></div>`;
-          return node;
-        },
-        renderHandler: (node, data, index) => {
-          const indent = data.getNodeIndent(-1);
-          node.title = data.label;
-          node.children[0].innerHTML = "<div></div>".repeat(indent);
-
-          if (data.collapsible) {
-            const collapsed = (data as any).collapsed;
-            node.children[1].className = collapsed ? "ri-arrow-right-s-line" : "ri-arrow-down-s-line";
-            node.children[2].className = collapsed ? "ri-folder-2-line" : "ri-folder-open-line";
-            // FEAT icon
-          } else {
-            node.children[1].className = "";
-            node.children[2].className = "ri-markdown-line"; // FEAT icon
-          }
-          node.children[3].innerHTML = data.label;
-        },
-      },
     },
     TreeData
   );
@@ -53,11 +26,11 @@ export default async (context: ThisType<Window>) => {
   TreeViewInstance.invoke();
 
   document.getElementById("treeview-close")?.addEventListener("click", () => {
-    TreeViewInstance.toggleAll(false);
+    TreeViewInstance.toggleCollpaseAll(false);
   });
 
   document.getElementById("treeview-close-all")?.addEventListener("click", () => {
-    TreeViewInstance.toggleAll(true);
+    TreeViewInstance.toggleCollpaseAll(true);
   });
 
   (context as any).TreeViewInstance = TreeViewInstance;

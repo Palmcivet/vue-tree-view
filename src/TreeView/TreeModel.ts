@@ -1,3 +1,4 @@
+import EventBus from "../EventBus";
 import { ITreeNodeBase, ITreeNodeFile, ITreeNodeFolder } from "./interface";
 
 /**
@@ -132,5 +133,11 @@ export class TreeNodeFolder extends TreeNodeFile implements ITreeNodeFolder {
    */
   setCollapsible(status: boolean): void {
     this.collapsed = status;
+  }
+}
+
+export class TreeModel extends EventBus {
+  constructor() {
+    super();
   }
 }

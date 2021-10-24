@@ -1,29 +1,3 @@
-/**
- * ListView 在 TreeView 的应用场景下，ListItem 有以下鼠标事件：
- * - 单击
- * - 双击
- * - 右击
- * - 滚动
- *
- * 有以下键盘事件：
- * - 上/下：active 项向上滚动
- * - 左/右：关闭/打开文件夹，active 移出/移入
- * - 空格：选中（同单击）
- * - 回车：重命名
- *
- * 打开文件夹，则该文件夹后面的内容将重新渲染，涉及到以下部分：
- * - 文件夹/文件图标切换
- * - 指示图标切换
- * - 缩进线
- * - 文件夹/文件标题
- *
- * ListView 在通用的应用场景下，ListItem 提供以下方法：
- * - insertData(data, index)：增量添加数据，适合懒加载
- * - deleteData(index, count)：删除数据，返回被删除内容
- * - updateData(data)：全量更新数据，但只渲染视口内数据，成本较低
- * - doResize()：手动更新容器尺寸
- */
-
 import { prefix } from "../config";
 import EventBus from "../EventBus";
 import { Scrollbar } from "../Scrollbar";
@@ -48,23 +22,7 @@ const CLASS_NAME = {
   Container: `${prefix}-list__wrapper`,
 };
 
-const createItem = (handler: () => HTMLElement): HTMLElement => {
-  const element = handler();
-  element.style.pointerEvents = "none";
-  element.className = CLASS_NAME.Item;
-
-  const itemElement = document.createElement("li");
-  itemElement.style.position = "absolute";
-  itemElement.style.willChange = "transform";
-  itemElement.style.cursor = "pointer";
-  itemElement.style.width = "100%";
-  itemElement.appendChild(element);
-  return itemElement;
-};
-
-const getItem = (element: HTMLElement): HTMLElement => {
-  return element.firstElementChild as HTMLElement;
-};
+export type EventType = "click" | "dbclick" | "contextmenu";
 
 export interface IListViewOptions<T> {
   /**
@@ -103,8 +61,6 @@ export interface IListViewOptions<T> {
    */
   renderHandler(element: HTMLElement, data: T, index: number, ...args: any[]): void;
 }
-
-export type EventType = "click" | "dbclick" | "contextmenu";
 
 export class ListView<T> extends EventBus<EventType> {
   /**
@@ -298,7 +254,7 @@ export class ListView<T> extends EventBus<EventType> {
     const elements = [];
     const { virtualItemCount } = this;
     for (let index = 0; index < virtualItemCount; index++) {
-      elements.push(createItem(this.options.createHandler));
+      elements.push(this._createListItem());
     }
     this.container.append(...elements);
 
@@ -315,13 +271,13 @@ export class ListView<T> extends EventBus<EventType> {
    * @param data 待渲染数据
    * @param index 待渲染数据的索引
    */
-  public renderItem(data: T, index: number): void {
+  public renderListItem(data: T, index: number): void {
     const { itemHeight } = this.options;
     const scrolledTop = this.container.scrollTop;
     const startIndex = Math.floor(scrolledTop / itemHeight);
     const elementIndex = index - startIndex;
     const element = this.container.children[elementIndex + RUNWAY_COUNT] as HTMLElement;
-    this.options.renderHandler(getItem(element), data, elementIndex + RUNWAY_COUNT);
+    this.options.renderHandler(element, data, elementIndex + RUNWAY_COUNT);
   }
 
   /**
@@ -332,9 +288,72 @@ export class ListView<T> extends EventBus<EventType> {
   }
 
   /**
+   * @description 滚动后的回调函数
+   */
+  private onScroll(event: Event): void {
+    const { scrollTop } = event.target as HTMLElement;
+    const { virtualContainerHeight } = this.cachedValue;
+
+    /* 越界操作 */
+    if (scrollTop < 0 || scrollTop + virtualContainerHeight > this.actualContainerHeight) {
+      return;
+    }
+
+    this._renderList();
+  }
+
+  private onClick(event: Event): void {
+    this.emit("click", event);
+  }
+
+  /**
+   * @description 缩放后的回调函数
+   */
+  private onResize(): void {
+    const cachedHeight = this.cachedValue.virtualContainerHeight;
+    const actualHeight = this.container.clientHeight;
+
+    if (cachedHeight < actualHeight) {
+      /* 放大 */
+      const count =
+        Math.ceil(actualHeight / this.options.itemHeight) +
+        DSURPLUS_COUNT -
+        (this.container.children.length - RUNWAY_COUNT);
+
+      const elements = [];
+      for (let index = 0; index < count; index++) {
+        elements.push(this._createListItem());
+      }
+      this.container.append(...elements);
+    }
+
+    if (cachedHeight > actualHeight) {
+      /* 缩小 */
+      // TODO 启动定时器清理节点
+      this._recycleList();
+    }
+
+    this._renderList();
+  }
+
+  /**
    * @description 测量尺寸
    */
   private _measureSize(): void {}
+
+  /**
+   * @description 创建子项
+   * @returns 列表子项元素节点
+   */
+  private _createListItem(): HTMLElement {
+    const itemElement = this.options.createHandler();
+    itemElement.className = CLASS_NAME.Item;
+    itemElement.style.width = "100%";
+    itemElement.style.position = "absolute";
+    itemElement.style.boxSizing = "border-box";
+    itemElement.style.willChange = "transform";
+    return itemElement;
+  }
 
   /***
    * @description 撑开容器
@@ -377,7 +396,7 @@ export class ListView<T> extends EventBus<EventType> {
       if (!!data) {
         const actualIndex = index + startIndex;
         element.dataset.index = actualIndex.toString();
-        this.options.renderHandler(getItem(element), data, actualIndex);
+        this.options.renderHandler(element, data, actualIndex);
       }
     }
   }
@@ -386,53 +405,4 @@ export class ListView<T> extends EventBus<EventType> {
    * @description 清理无用 DOM 元素
    */
   private _recycleList(): void {}
-
-  /**
-   * @description 滚动后的回调函数
-   */
-  private onScroll(event: Event): void {
-    const { scrollTop } = event.target as HTMLElement;
-    const { virtualContainerHeight } = this.cachedValue;
-
-    /* 越界操作 */
-    if (scrollTop < 0 || scrollTop + virtualContainerHeight > this.actualContainerHeight) {
-      return;
-    }
-
-    this._renderList();
-  }
-
-  private onClick(event: Event): void {
-    this.emit("click", event);
-  }
-
-  /**
-   * @description 缩放后的回调函数
-   */
-  private onResize(): void {
-    const cachedHeight = this.cachedValue.virtualContainerHeight;
-    const actualHeight = this.container.clientHeight;
-
-    if (cachedHeight < actualHeight) {
-      /* 放大 */
-      const count =
-        Math.ceil(actualHeight / this.options.itemHeight) +
-        DSURPLUS_COUNT -
-        (this.container.children.length - RUNWAY_COUNT);
-
-      const elements = [];
-      for (let index = 0; index < count; index++) {
-        elements.push(createItem(this.options.createHandler));
-      }
-      this.container.append(...elements);
-    }
-
-    if (cachedHeight > actualHeight) {
-      /* 缩小 */
-      // TODO 启动定时器清理节点
-      this._recycleList();
-    }
-
-    this._renderList();
-  }
 }

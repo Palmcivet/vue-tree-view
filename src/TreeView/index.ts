@@ -1,8 +1,9 @@
 import { ListView, IListViewOptions } from "../ListView";
-import { TreeNodeFile, TreeNodeFolder } from "./TreeModel";
+import { TreeNodeFile, TreeNodeFolder } from "./treeModel";
 import { ITreeNodeFolder } from "./interface";
 import EventBus from "../EventBus";
 import { prefix } from "../config";
+import "./index.less";
 
 type TreeNode = TreeNodeFile | TreeNodeFolder;
 
@@ -22,6 +23,8 @@ const CLASS_NAME = {
   DragTarget: `${prefix}-tree__drag-target`,
 };
 
+export type EventType = "click" | "contextmenu" | "u-open" | "u-move" | "u-delete" | "u-rename";
+
 export interface ITreeViewOptions<T> {
   /**
    * @description 展示缩进线
@@ -37,11 +40,9 @@ export interface ITreeViewOptions<T> {
   fetchHandler(...event: Array<any>): Promise<ITreeNodeFolder>;
 }
 
-export type EventType = "click" | "contextmenu" | "u-move" | "u-delete";
-
 export class TreeView extends EventBus<EventType> {
   /**
-   * @description 根节点
+   * @field 根节点
    */
   private readonly root: HTMLElement;
 
@@ -58,12 +59,12 @@ export class TreeView extends EventBus<EventType> {
   /**
    * @field 需要渲染的项目列表，包含文件/文件夹
    */
-  private readonly nodeList: Array<TreeNode> = [];
+  private readonly treeNodeList: Array<TreeNode> = [];
 
   /**
    * @field 当前焦点
    */
-  private activeNode!: TreeNode | null;
+  private activeTreeNode!: TreeNode | null;
 
   /**
    * @field 设置
@@ -75,7 +76,10 @@ export class TreeView extends EventBus<EventType> {
 
     this.options = {
       showIndent: true,
-      listView: {},
+      listView: {
+        createHandler: this._createTreeNodeElement,
+        renderHandler: this._renderTreeNodeElement,
+      },
       fetchHandler: async () => DEFAULT_MODEL,
       ...options,
     };
@@ -85,7 +89,7 @@ export class TreeView extends EventBus<EventType> {
     this.root.classList.add(CLASS_NAME.Root);
     this.treeModel = new TreeNodeFolder(data, null);
     this.listView = new ListView(root, { ...listView });
-    this.nodeList = [];
+    this.treeNodeList = [];
   }
 
   /**
@@ -100,14 +104,16 @@ export class TreeView extends EventBus<EventType> {
        * @param index 序号
        */
       click: (index: number, event: MouseEvent): void => {
-        const targetNode = this.nodeList[index];
-        this.activeNode = targetNode;
+        const targetTreeNode = this.treeNodeList[index];
+        this.activeTreeNode = targetTreeNode;
 
-        if (targetNode.collapsible) {
-          this._toggleCollpase(index, !(targetNode as TreeNodeFolder).collapsed);
+        if (targetTreeNode.collapsible) {
+          this._toggleCollpase(index, !(targetTreeNode as TreeNodeFolder).collapsed);
+        } else {
+          this.emit("u-open", targetTreeNode.getNodePath());
         }
 
-        this.emit("click", event);
+        this.emit("click", targetTreeNode);
       },
 
       /**
@@ -120,11 +126,12 @@ export class TreeView extends EventBus<EventType> {
        * @param index 序号
        */
       contextmenu: (index: number): void => {
-        this.emit("contextmenu", this.nodeList[index].getAncestorNode());
+        this.emit("contextmenu", this.treeNodeList[index].getAncestorNode());
       },
 
       keydown: (idx: number): void => {
         // rename
+        // search
       },
 
       /* 拖拽元素 */
@@ -187,11 +194,11 @@ export class TreeView extends EventBus<EventType> {
         target.classList.remove(CLASS_NAME.DragTarget);
 
         const dstIndex = Number.parseInt(event.dataTransfer?.getData("text")!);
-        const srcNode = this.nodeList[index];
-        const dstNode = this.nodeList[dstIndex];
-        this.nodeList[index] = dstNode;
-        this.nodeList[dstIndex] = srcNode;
-        this._render();
+        const srcNode = this.treeNodeList[index];
+        const dstNode = this.treeNodeList[dstIndex];
+        this.treeNodeList[index] = dstNode;
+        this.treeNodeList[dstIndex] = srcNode;
+        this._renderTree();
       },
     };
 
@@ -203,8 +210,8 @@ export class TreeView extends EventBus<EventType> {
       });
     }
 
-    this.nodeList.splice(0, length, ...this._getNodeList(this.treeModel));
-    this._render();
+    this._updateTreeNodeList();
+    this._renderTree();
   }
 
   /**
@@ -228,16 +235,15 @@ export class TreeView extends EventBus<EventType> {
    */
   public updateData(dataModel: TreeNodeFolder): void {
     this.treeModel?.loadModel(dataModel);
-    const { length } = this.nodeList;
-    this.nodeList.splice(0, length, ...this._getNodeList(this.treeModel));
-    this._render();
+    this._updateTreeNodeList();
+    this._renderTree();
   }
 
   /**
    * @description 收起所有文件
    * @param isAll 是否递归收拢
    */
-  public toggleAll(isAll: boolean = false): void {
+  public toggleCollpaseAll(isAll: boolean = false): void {
     const walkThrough = (model: TreeNodeFolder, flag = true) => {
       model.folders.forEach((subModel) => {
         subModel.setCollapsible(true);
@@ -249,9 +255,8 @@ export class TreeView extends EventBus<EventType> {
 
     walkThrough(this.treeModel!, isAll);
 
-    const length = this.nodeList.length;
-    this.nodeList.splice(0, length, ...this._getNodeList(this.treeModel!));
-    this._render();
+    this._updateTreeNodeList();
+    this._renderTree();
   }
 
   /**
@@ -260,38 +265,38 @@ export class TreeView extends EventBus<EventType> {
    * @param status 是否折叠
    */
   private async _toggleCollpase(index: number, status: boolean): Promise<void> {
-    const target = this.nodeList[index] as TreeNodeFolder;
+    const target = this.treeNodeList[index] as TreeNodeFolder;
 
     if (status) {
       target.setCollapsible(true);
-      this.nodeList.splice(index + 1, this._getNodeList(target).length);
+      this.treeNodeList.splice(index + 1, this._getTreeNodeList(target).length);
     } else {
       target.setCollapsible(false);
-      this.listView.renderItem(target, index);
+      this.listView.renderListItem(target, index);
       if (!target.getLoadStatus()) {
         const data = await this.options.fetchHandler();
         target.loadModel(data);
       }
-      this.nodeList.splice(index + 1, 0, ...this._getNodeList(target));
+      this.treeNodeList.splice(index + 1, 0, ...this._getTreeNodeList(target));
     }
 
-    this._render();
+    this._renderTree();
   }
 
   /**
-   * @description 获取列表
+   * @function 纯函数
+   * @description 获取部分 treeNodeList 列表
    * @param model 模型
    */
-  private _getNodeList(model: TreeNodeFolder): Array<TreeNode> {
+  private _getTreeNodeList(model: TreeNodeFolder): Array<TreeNode> {
     const list: Array<TreeNode> = [];
 
     // TODO 顺序
 
-    // TODO 封装，从 get- 接口获取
     model.folders.forEach((item) => {
       list.push(item);
       if (!item.collapsed) {
-        list.push(...this._getNodeList(item));
+        list.push(...this._getTreeNodeList(item));
       }
     });
 
@@ -303,9 +308,55 @@ export class TreeView extends EventBus<EventType> {
   }
 
   /**
+   * @description 全量更新 treeNodeList
+   */
+  private _updateTreeNodeList(): void {
+    const { length } = this.treeNodeList;
+    this.treeNodeList.splice(0, length, ...this._getTreeNodeList(this.treeModel));
+  }
+
+  /**
+   * @function 纯函数
+   * @description 创建元素节点
+   * @returns 树列表元素节点
+   */
+  private _createTreeNodeElement(): HTMLElement {
+    const element = document.createElement("li");
+    element.innerHTML = `
+<div class="${prefix}-indent"></div>
+<i class="${prefix}-twist"></i>
+<i class="${prefix}-icon"></i>
+<div class="${prefix}-label"></div>`;
+    return element;
+  }
+
+  /**
+   * @description 渲染树列表元素节点
+   * @param element 元素节点
+   * @param data 待渲染的数据
+   * @param index 待渲染的数据逻辑索引
+   */
+  private _renderTreeNodeElement(element: HTMLElement, data: TreeNode, index: number) {
+    const indent = data.getNodeIndent(-1);
+    element.title = data.label;
+    element.children[0].innerHTML = "<div></div>".repeat(indent);
+
+    if (data.collapsible) {
+      const collapsed = (data as any).collapsed;
+      element.children[1].className = collapsed ? "ri-arrow-right-s-line" : "ri-arrow-down-s-line";
+      element.children[2].className = collapsed ? "ri-folder-2-line" : "ri-folder-open-line";
+      // FEAT icon
+    } else {
+      element.children[1].className = "";
+      element.children[2].className = "ri-markdown-line"; // FEAT icon
+    }
+    element.children[3].innerHTML = data.label;
+  }
+
+  /**
    * @description 渲染函数
    */
-  private _render() {
-    this.listView.updateData(this.nodeList);
+  private _renderTree(): void {
+    this.listView.updateData(this.treeNodeList);
   }
 }

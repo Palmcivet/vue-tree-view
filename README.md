@@ -59,7 +59,28 @@ $ npm i @palmcivet/unitext-tree-view    # npm
 
 ### List View
 
-实现了一个虚拟列表，提供如下方法：
+ListView 在 TreeView 的应用场景下，ListItem 有以下鼠标事件：
+
+- 单击
+- 双击
+- 右击
+- 滚动
+
+有以下键盘事件：
+
+- 上/下：active 项向上滚动
+- 左/右：关闭/打开文件夹，active 移出/移入
+- 空格：选中（同单击）
+- 回车：重命名
+
+打开文件夹，则该文件夹后面的内容将重新渲染，涉及到以下部分：
+
+- 文件夹/文件图标切换
+- 指示图标切换
+- 缩进线
+- 文件夹/文件标题
+
+ListView 在通用的应用场景下，ListItem 提供以下方法：
 
 - `insertData(data, index)`：增量添加数据，适合懒加载
 - `deleteData(index, count)`：删除数据，返回被删除内容

@@ -8,8 +8,7 @@
     "esModuleInterop": true,
     "declaration": true,
     "useDefineForClassFields": true,
-    "noImplicitReturns": true,
-    "removeComments": true
+    "noImplicitReturns": true
   },
   "include": ["src"],
   "exclude": ["src/**/*.test.ts"]
