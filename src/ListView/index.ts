@@ -1,6 +1,6 @@
-import { prefix } from "../config";
-import EventBus from "../EventBus";
+import { EventBus } from "../EventBus";
 import { Scrollbar } from "../Scrollbar";
+import { prefix } from "../config";
 
 /**
  * @var 为实现平滑滚动而补足的数据项数量
@@ -16,10 +16,9 @@ const RUNWAY_COUNT = 1;
 const RUNWAY_SIZE = 1;
 
 const CLASS_NAME = {
-  Root: "unitext-listview",
   Item: `${prefix}-list__item`,
   Runway: `${prefix}-list__runway`,
-  Container: `${prefix}-list__wrapper`,
+  Container: `${prefix}-listview`,
 };
 
 export type EventType = "click" | "dbclick" | "contextmenu";
@@ -139,7 +138,6 @@ export class ListView<T> extends EventBus<EventType> {
     };
     const { tagName, className } = this.options;
     this.root = root;
-    this.root.classList.add(CLASS_NAME.Root);
     this.scrollbar = new Scrollbar(this.root);
     this.container = document.createElement(tagName);
     this.container.classList.add(className);
@@ -181,7 +179,6 @@ export class ListView<T> extends EventBus<EventType> {
     this.container.removeEventListener("scroll", this.onScroll);
     this.container.removeEventListener("click", this.onClick);
     this.scrollbar.dispose();
-    this.root.classList.remove(CLASS_NAME.Root);
     this.root.appendChild(this.container);
   }
 

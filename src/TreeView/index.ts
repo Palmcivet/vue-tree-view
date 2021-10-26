@@ -1,7 +1,7 @@
 import { ListView, IListViewOptions } from "../ListView";
-import { TreeNodeFile, TreeNodeFolder } from "./treeModel";
-import { ITreeNodeFolder } from "./interface";
-import EventBus from "../EventBus";
+import { TreeNodeFile, TreeNodeFolder, ITreeNodeFolder } from "./treemodel";
+import { InputBox } from "./inputBox";
+import { EventBus } from "../EventBus";
 import { prefix } from "../config";
 import "./index.less";
 
@@ -18,12 +18,12 @@ const DEFAULT_MODEL = {
 };
 
 const CLASS_NAME = {
-  Root: "unitext-treeview",
+  Root: `${prefix}-treeview`,
   DragSource: `${prefix}-tree__drag-source`,
   DragTarget: `${prefix}-tree__drag-target`,
 };
 
-export type EventType = "click" | "contextmenu" | "u-open" | "u-move" | "u-delete" | "u-rename";
+export type EventType = "click" | "contextmenu" | "u-create" | "u-open" | "u-rename" | "u-delete" | "u-move";
 
 export interface ITreeViewOptions<T> {
   /**
@@ -45,6 +45,11 @@ export class TreeView extends EventBus<EventType> {
    * @field 根节点
    */
   private readonly root: HTMLElement;
+
+  /**
+   * @field 输入框
+   */
+  private readonly inputbox: InputBox;
 
   /**
    * @field 树的数据模型
@@ -77,8 +82,8 @@ export class TreeView extends EventBus<EventType> {
     this.options = {
       showIndent: true,
       listView: {
-        createHandler: this._createTreeNodeElement,
-        renderHandler: this._renderTreeNodeElement,
+        createHandler: this.onCreateTreeNodeElement,
+        renderHandler: this.onRenderTreeNodeElement,
       },
       fetchHandler: async () => DEFAULT_MODEL,
       ...options,
@@ -89,6 +94,7 @@ export class TreeView extends EventBus<EventType> {
     this.root.classList.add(CLASS_NAME.Root);
     this.treeModel = new TreeNodeFolder(data, null);
     this.listView = new ListView(root, { ...listView });
+    this.inputbox = new InputBox(root);
     this.treeNodeList = [];
   }
 
@@ -97,6 +103,7 @@ export class TreeView extends EventBus<EventType> {
    */
   public invoke(): void {
     this.listView.invoke();
+    this.inputbox.invoke();
 
     const EVENT_MAP: { [K: string]: Function } = {
       /**
@@ -108,7 +115,7 @@ export class TreeView extends EventBus<EventType> {
         this.activeTreeNode = targetTreeNode;
 
         if (targetTreeNode.collapsible) {
-          this._toggleCollpase(index, !(targetTreeNode as TreeNodeFolder).collapsed);
+          this.onToggleCollpase(index, !(targetTreeNode as TreeNodeFolder).collapsed);
         } else {
           this.emit("u-open", targetTreeNode.getNodePath());
         }
@@ -117,21 +124,11 @@ export class TreeView extends EventBus<EventType> {
       },
 
       /**
-       * @description 双击
-       */
-      dbclick: (): void => {},
-
-      /**
        * @description 右键
        * @param index 序号
        */
       contextmenu: (index: number): void => {
         this.emit("contextmenu", this.treeNodeList[index].getAncestorNode());
-      },
-
-      keydown: (idx: number): void => {
-        // rename
-        // search
       },
 
       /* 拖拽元素 */
@@ -205,11 +202,14 @@ export class TreeView extends EventBus<EventType> {
     for (const eventName in EVENT_MAP) {
       this.root.addEventListener(eventName, (event) => {
         const target = event.target as HTMLElement;
-        const index = Number.parseInt(target.dataset.index!);
-        EVENT_MAP[eventName].call(this, index, event);
+        if (target.nodeName.toUpperCase() === "LI") {
+          const index = Number.parseInt(target.dataset.index!);
+          EVENT_MAP[eventName].call(this, index, event);
+        }
       });
     }
 
+    this.root.addEventListener("keydown", this.onKeydown.bind(this));
     this._updateTreeNodeList();
     this._renderTree();
   }
@@ -218,11 +218,13 @@ export class TreeView extends EventBus<EventType> {
    * @description 清理函数
    */
   public dispose(): void {
+    this.inputbox.dispose();
     this.listView.dispose();
     this.root.classList.remove(CLASS_NAME.Root);
     for (let index = 0; index < this.root.children.length; index++) {
       this.root.removeChild(this.root.children[index]);
     }
+    this.root.removeEventListener("keydown", this.onKeydown);
   }
 
   /**
@@ -260,11 +262,79 @@ export class TreeView extends EventBus<EventType> {
   }
 
   /**
+   * @function 纯函数
+   * @description 创建元素节点
+   * @returns 树列表元素节点
+   */
+  private onCreateTreeNodeElement(): HTMLElement {
+    const element = document.createElement("li");
+    element.innerHTML = `
+<div class="${prefix}-indent"></div>
+<i class="${prefix}-twist"></i>
+<i class="${prefix}-icon"></i>
+<div class="${prefix}-label"></div>`;
+    return element;
+  }
+
+  /**
+   * @description 渲染树列表元素节点
+   * @param element 元素节点
+   * @param data 待渲染的数据
+   * @param index 待渲染的数据逻辑索引
+   */
+  private onRenderTreeNodeElement(element: HTMLElement, data: TreeNode, index: number): void {
+    const indent = data.getNodeIndent(-1);
+    element.title = data.label;
+    element.children[0].innerHTML = "<div></div>".repeat(indent);
+
+    if (data.collapsible) {
+      const collapsed = (data as any).collapsed;
+      element.children[1].className = collapsed ? "ri-arrow-right-s-line" : "ri-arrow-down-s-line";
+      element.children[2].className = collapsed ? "ri-folder-2-line" : "ri-folder-open-line";
+      // FEAT icon
+    } else {
+      element.children[1].className = "";
+      element.children[2].className = "ri-markdown-line"; // FEAT icon
+    }
+    element.children[3].innerHTML = data.label;
+  }
+
+  private onKeydown(event: KeyboardEvent): void {
+    console.log(event);
+
+    switch (event.key) {
+      case "Delete":
+        this.onDelete();
+        break;
+      case "Enter":
+        console.log("12");
+        this.inputbox.doFocus({ x: 20, y: 0 }, "232dhfaf.ts");
+        break;
+      default:
+        // search
+        break;
+    }
+  }
+
+  private onCreate(): void {
+    this.emit("u-create");
+  }
+
+  private onRename(event: MouseEvent): void {
+    this.inputbox.doFocus(event);
+    this.emit("u-rename");
+  }
+
+  private onDelete(): void {
+    this.emit("u-delete");
+  }
+
+  /**
    * @description 开关文件夹
    * @param index 下标
    * @param status 是否折叠
    */
-  private async _toggleCollpase(index: number, status: boolean): Promise<void> {
+  private async onToggleCollpase(index: number, status: boolean): Promise<void> {
     const target = this.treeNodeList[index] as TreeNodeFolder;
 
     if (status) {
@@ -313,44 +383,6 @@ export class TreeView extends EventBus<EventType> {
   private _updateTreeNodeList(): void {
     const { length } = this.treeNodeList;
     this.treeNodeList.splice(0, length, ...this._getTreeNodeList(this.treeModel));
-  }
-
-  /**
-   * @function 纯函数
-   * @description 创建元素节点
-   * @returns 树列表元素节点
-   */
-  private _createTreeNodeElement(): HTMLElement {
-    const element = document.createElement("li");
-    element.innerHTML = `
-<div class="${prefix}-indent"></div>
-<i class="${prefix}-twist"></i>
-<i class="${prefix}-icon"></i>
-<div class="${prefix}-label"></div>`;
-    return element;
-  }
-
-  /**
-   * @description 渲染树列表元素节点
-   * @param element 元素节点
-   * @param data 待渲染的数据
-   * @param index 待渲染的数据逻辑索引
-   */
-  private _renderTreeNodeElement(element: HTMLElement, data: TreeNode, index: number) {
-    const indent = data.getNodeIndent(-1);
-    element.title = data.label;
-    element.children[0].innerHTML = "<div></div>".repeat(indent);
-
-    if (data.collapsible) {
-      const collapsed = (data as any).collapsed;
-      element.children[1].className = collapsed ? "ri-arrow-right-s-line" : "ri-arrow-down-s-line";
-      element.children[2].className = collapsed ? "ri-folder-2-line" : "ri-folder-open-line";
-      // FEAT icon
-    } else {
-      element.children[1].className = "";
-      element.children[2].className = "ri-markdown-line"; // FEAT icon
-    }
-    element.children[3].innerHTML = data.label;
   }
 
   /**

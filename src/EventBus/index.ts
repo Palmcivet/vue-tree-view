@@ -17,7 +17,7 @@ type WildCardEventHandlerList<T> = Array<WildcardHandler<T>>;
 // A map of event types and their corresponding event handlers.
 type EventHandlerMap<T = EventType> = Map<T, EventHandlerList | WildCardEventHandlerList<T>>;
 
-export default class EventBus<T = EventType> {
+export class EventBus<T = EventType> {
   private readonly emitter: EventHandlerMap<T>;
 
   constructor(all?: EventHandlerMap<T>) {

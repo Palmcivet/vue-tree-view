@@ -1,6 +1,8 @@
-.unitext-treeview {
+.u-treeview {
+  @item-height: 24px;
+
   height: 100%;
-  line-height: 24px;
+  line-height: @item-height;
 
   &__drag {
     &-source {
@@ -12,50 +14,68 @@
     }
   }
 
-  .u-list__item {
-    display: flex;
-    cursor: pointer;
-
-    & > * {
-      pointer-events: none;
-    }
-
-    i {
-      font-size: 1rem;
-      width: 16px;
-      height: 100%;
-      box-sizing: content-box;
-    }
-
-    .u-indent {
+  .u-listview {
+    .u-list__item {
       display: flex;
+      cursor: pointer;
 
-      div {
-        width: 6px; // DEV
-        border-right: 0.1px solid transparent; // DEV
-        transition: border-color 0.1s linear;
+      & > * {
+        pointer-events: none;
+      }
+
+      i {
+        font-size: 1rem;
+        width: 16px;
+        height: 100%;
+        box-sizing: content-box;
+      }
+
+      .u-indent {
+        display: flex;
+
+        div {
+          width: 6px; // DEV
+          border-right: 0.1px solid transparent; // DEV
+          transition: border-color 0.1s linear;
+        }
+      }
+
+      .u-label {
+        flex: 1;
+        margin-left: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      &:hover {
+        background-color: rgb(97, 97, 97); // DEV
+      }
+
+      &.active {
+        color: rgb(230, 230, 230); // DEV
+        background-color: rgb(110, 110, 110); // DEV
       }
     }
 
-    .u-label {
-      flex: 1;
-      margin-left: 4px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    &:hover {
-      background-color: rgb(97, 97, 97); // DEV
-    }
-
-    &.active {
-      color: rgb(230, 230, 230); // DEV
-      background-color: rgb(110, 110, 110); // DEV
+    &:hover .u-list__item .u-indent > div {
+      border-right: 0.1px solid #585858; // DEV
     }
   }
 
-  &:hover .u-list__item .u-indent > div {
-    border-right: 0.1px solid #585858; // DEV
+  .u-inputbox {
+    height: @item-height;
+    line-height: @item-height;
+    right: 0;
+    border: 0;
+    outline: 0;
+    padding: 0 2px;
+    color: whitesmoke; // DEV
+    background-color: rgb(116, 116, 116); // DEV
+  }
+
+  .u-inputmask {
+    background-color: #00000060;
+    opacity: 0.8;
   }
 }
