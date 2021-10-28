@@ -10,6 +10,12 @@ interface IFocusPoint {
   y: number;
 }
 
+interface IInpuboxOptions {
+  onValidate: (value: string) => [boolean, string];
+  onChange: (value: string) => void;
+  onSumbit: (value: string) => void;
+}
+
 export class InputBox {
   /**
    * @description 挂载的根节点
@@ -27,11 +33,17 @@ export class InputBox {
   private readonly mask!: HTMLElement;
 
   /**
-   * @description 编辑状态
+   * @description 配置项
    */
-  private isEditing: boolean = false;
+  private readonly options!: IInpuboxOptions;
 
-  constructor(root: HTMLElement) {
+  constructor(root: HTMLElement, options?: Partial<IInpuboxOptions>) {
+    this.options = {
+      onValidate: () => [true, ""],
+      onChange: () => {},
+      onSumbit: () => {},
+      ...options,
+    };
     this.root = root;
     this.box = document.createElement("input");
     this.box.className = CLASS_NAME.Box;
@@ -53,19 +65,20 @@ export class InputBox {
 
   public invoke(): void {
     this._toggleVisibility(false);
-    this.box.addEventListener("click", this.onClickInputbox.bind(this));
+    this.box.addEventListener("change", this.onChange.bind(this));
+    this.box.addEventListener("keydown", this.onKeydown.bind(this));
     this.mask.addEventListener("click", this.onClickMask.bind(this));
   }
 
   public dispose(): void {
-    this.box.removeEventListener("click", this.onClickInputbox);
+    this.box.removeEventListener("change", this.onChange);
+    this.box.removeEventListener("keydown", this.onKeydown);
     this.mask.removeEventListener("click", this.onClickMask);
     this.root.removeChild(this.box);
     this.root.removeChild(this.mask);
   }
 
   public doFocus(point: IFocusPoint, oldValue: string = ""): void {
-    this.isEditing = true;
     this._toggleVisibility(true);
     this._placeInputbox(point);
     this.box.value = oldValue;
@@ -74,19 +87,45 @@ export class InputBox {
     this.box.setSelectionRange(0, length);
   }
 
-  private onClickInputbox(event: MouseEvent): void {
-    event.stopPropagation();
-  }
-
-  private onClickMask(event: MouseEvent): void {
-    event.stopPropagation();
-    this.isEditing = false;
-    this.box.value = "";
+  private onBlur(): void {
+    this.box.blur();
     this._toggleVisibility(false);
     this.root.focus();
   }
 
-  private onSubmit(): void {}
+  private onSubmit(): void {
+    this.options.onSumbit(this.box.value);
+    this.box.value = "";
+  }
+
+  private onClickMask(event: MouseEvent): void {
+    event.stopPropagation();
+    if (this.box.value !== "") {
+      this.onSubmit();
+    }
+    this.onBlur();
+  }
+
+  private onChange(): void {
+    this.options.onChange(this.box.value);
+    this.options.onValidate(this.box.value);
+  }
+
+  private onKeydown(event: KeyboardEvent): void {
+    event.stopPropagation();
+
+    switch (event.key) {
+      case "Escape":
+        this.onBlur();
+        break;
+      case "Enter":
+        if (!event.isComposing) {
+          this.onSubmit();
+          this.onBlur();
+        }
+        break;
+    }
+  }
 
   private _placeInputbox({ x, y }: IFocusPoint): void {
     this.box.style.left = `${x}px`;

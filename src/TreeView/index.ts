@@ -19,6 +19,7 @@ const DEFAULT_MODEL = {
 
 const CLASS_NAME = {
   Root: `${prefix}-treeview`,
+  Active: `${prefix}-active`,
   DragSource: `${prefix}-tree__drag-source`,
   DragTarget: `${prefix}-tree__drag-target`,
 };
@@ -69,7 +70,7 @@ export class TreeView extends EventBus<EventType> {
   /**
    * @field 当前焦点
    */
-  private activeTreeNode!: TreeNode | null;
+  private activeTreeNode: TreeNode | null = null;
 
   /**
    * @field 设置
@@ -94,7 +95,14 @@ export class TreeView extends EventBus<EventType> {
     this.root.classList.add(CLASS_NAME.Root);
     this.treeModel = new TreeNodeFolder(data, null);
     this.listView = new ListView(root, { ...listView });
-    this.inputbox = new InputBox(root);
+    this.inputbox = new InputBox(root, {
+      onValidate: (value) => {
+        return [!["1.js", "2.js"].includes(value), "重复"];
+      },
+      onSumbit: (value) => {
+        console.log(value);
+      },
+    });
     this.treeNodeList = [];
   }
 
@@ -111,16 +119,25 @@ export class TreeView extends EventBus<EventType> {
        * @param index 序号
        */
       click: (index: number, event: MouseEvent): void => {
-        const targetTreeNode = this.treeNodeList[index];
-        this.activeTreeNode = targetTreeNode;
+        console.log(event);
 
-        if (targetTreeNode.collapsible) {
-          this.onToggleCollpase(index, !(targetTreeNode as TreeNodeFolder).collapsed);
+        if (event.shiftKey) {
+          // 选区
+        } else if (event.metaKey) {
+          // 多选
         } else {
-          this.emit("u-open", targetTreeNode.getNodePath());
-        }
+          // 单选
+          const targetTreeNode = this.treeNodeList[index];
+          this.activeTreeNode = targetTreeNode;
 
-        this.emit("click", targetTreeNode);
+          if (targetTreeNode.collapsible) {
+            this.onToggleCollpase(index, !(targetTreeNode as TreeNodeFolder).collapsed);
+          } else {
+            this.emit("u-open", targetTreeNode.getNodePath());
+          }
+
+          this.emit("click", targetTreeNode);
+        }
       },
 
       /**
@@ -299,19 +316,37 @@ export class TreeView extends EventBus<EventType> {
     element.children[3].innerHTML = data.label;
   }
 
+  /***
+   * @description 监听键盘操作
+   */
   private onKeydown(event: KeyboardEvent): void {
-    console.log(event);
-
     switch (event.key) {
       case "Delete":
         this.onDelete();
         break;
       case "Enter":
-        console.log("12");
-        this.inputbox.doFocus({ x: 20, y: 0 }, "232dhfaf.ts");
+        if (this.activeTreeNode !== null) {
+          this.inputbox.doFocus({ x: 20, y: 0 }, "232dhfaf.ts");
+        }
         break;
+      case "ArrowUp":
+        break;
+      case "ArrowDown":
+        break;
+      case "ArrowLeft":
+        break;
+      case "ArrowRight":
+        break;
+      case " ":
+        break;
+      case "a":
+        if (event.metaKey) {
+          // 全选
+          break;
+        }
       default:
         // search
+        console.log(event);
         break;
     }
   }

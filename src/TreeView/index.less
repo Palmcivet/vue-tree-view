@@ -48,13 +48,13 @@
         white-space: nowrap;
       }
 
-      &:hover {
+      &.u-active {
+        color: rgb(230, 230, 230); // DEV
         background-color: rgb(97, 97, 97); // DEV
       }
 
-      &.active {
-        color: rgb(230, 230, 230); // DEV
-        background-color: rgb(110, 110, 110); // DEV
+      &:hover {
+        background-color: rgba(97, 97, 97, 0.6); // DEV
       }
     }
 
@@ -64,6 +64,7 @@
   }
 
   .u-inputbox {
+    font-size: 0.9em;
     height: @item-height;
     line-height: @item-height;
     right: 0;
