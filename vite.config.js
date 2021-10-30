@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
+import typescript from "@rollup/plugin-typescript";
 
 export default defineConfig({
   build: {
@@ -11,4 +12,5 @@ export default defineConfig({
       fileName: "index",
     },
   },
+  plugins: [typescript()],
 });
