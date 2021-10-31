@@ -1,6 +1,6 @@
 export default function Monitor(canvas: HTMLCanvasElement, { interval } = { interval: 30 }) {
   canvas.style.position = "fixed";
-  canvas.style.right = "8px";
+  canvas.style.left = "8px";
   canvas.style.bottom = "8px";
   canvas.width = 100;
   canvas.height = 50;

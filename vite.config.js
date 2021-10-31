@@ -3,6 +3,9 @@ import { resolve } from "path";
 import typescript from "@rollup/plugin-typescript";
 
 export default defineConfig({
+  server: {
+    port: 30000,
+  },
   build: {
     emptyOutDir: true,
     lib: {
