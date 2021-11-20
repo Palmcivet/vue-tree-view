@@ -14,7 +14,7 @@ function collect(location) {
       folders.push(collect(dir));
     } else {
       files.push({
-        name: path.basename(dir),
+        label: path.basename(dir),
         icon: "ri-markdown-line",
         collapsible: false,
       });
@@ -22,7 +22,7 @@ function collect(location) {
   });
 
   return {
-    name: path.basename(location),
+    label: path.basename(location),
     icon: "ri-folder-2-line",
     collapsible: true,
     collapsed: true,

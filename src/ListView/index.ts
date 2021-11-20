@@ -176,6 +176,7 @@ export class ListView<T> extends EventBus<EventType> {
   public dispose(): void {
     this.clear();
     window.removeEventListener("resize", this.onResize);
+    this.sourceList = [];
     this.container.removeEventListener("scroll", this.onScroll);
     this.container.removeEventListener("click", this.onClick);
     this.scrollbar.dispose();

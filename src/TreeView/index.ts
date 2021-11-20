@@ -65,7 +65,7 @@ export class TreeView extends EventBus<EventType> {
   /**
    * @field 需要渲染的项目列表，包含文件/文件夹
    */
-  private readonly treeNodeList: Array<TreeNode> = [];
+  private treeNodeList: Array<TreeNode> = [];
 
   /**
    * @field 当前焦点
@@ -235,8 +235,10 @@ export class TreeView extends EventBus<EventType> {
    * @description 清理函数
    */
   public dispose(): void {
+    this.clear();
     this.inputbox.dispose();
     this.listView.dispose();
+    this.treeNodeList = [];
     this.root.classList.remove(CLASS_NAME.Root);
     for (let index = 0; index < this.root.children.length; index++) {
       this.root.removeChild(this.root.children[index]);
@@ -252,7 +254,7 @@ export class TreeView extends EventBus<EventType> {
   /**
    * @description 更新文件夹
    */
-  public updateData(dataModel: TreeNodeFolder): void {
+  public updateData(dataModel: ITreeNodeFolder): void {
     this.treeModel?.loadModel(dataModel);
     this._updateTreeNodeList();
     this._renderTree();
@@ -379,7 +381,7 @@ export class TreeView extends EventBus<EventType> {
       target.setCollapsible(false);
       this.listView.renderListItem(target, index);
       if (!target.getLoadStatus()) {
-        const data = await this.options.fetchHandler();
+        const data = await this.options.fetchHandler(target.getNodePath());
         target.loadModel(data);
       }
       this.treeNodeList.splice(index + 1, 0, ...this._getTreeNodeList(target));
