@@ -26,6 +26,10 @@ export class SplitView extends EventBus {
 
   private viewItems: Array<View>;
 
+  public get length() {
+    return this.viewItems.length;
+  }
+
   constructor(root: HTMLElement) {
     super();
     this.sashItems = [];
@@ -47,11 +51,11 @@ export class SplitView extends EventBus {
   public dispose(): void {
     this.clear();
     this._register(false);
+    this.sashItems.forEach((sash) => sash.dispose());
+    this.viewItems.forEach((view) => view.dispose());
     this.root.classList.remove(CLASS_NAME.Container);
     this.root.removeChild(this.viewContainer);
     this.root.removeChild(this.sashContainer);
-    this.sashItems.forEach((sash) => sash.dispose());
-    this.viewItems.forEach((view) => view.dispose());
     this.sashItems = [];
     this.viewItems = [];
   }
@@ -100,7 +104,7 @@ export class SplitView extends EventBus {
     this.viewItems.splice(viewIndex, 0, view);
 
     if (this.viewItems.length > 1) {
-      const sash = new Sash(this.viewContainer, orientation);
+      const sash = new Sash(this.sashContainer, orientation);
 
       this.sashItems.splice(sashIndex, 0, sash);
 

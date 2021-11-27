@@ -22,6 +22,6 @@ yarn-error.log*
 *.sw*
 
 # build output
-/build
-/dist
-/dist_electron
+build
+dist
+dist_electron

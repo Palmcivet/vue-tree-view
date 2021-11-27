@@ -4,6 +4,9 @@ src
 script
 coverage
 docs
+demo
+dist
+example
 
 # configuration file
 .czrc

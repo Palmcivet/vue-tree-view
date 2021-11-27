@@ -20,8 +20,8 @@
     "VSCode"
   ],
   "scripts": {
-    "dev": "vite serve demo/",
-    "tsc": "tsc",
+    "dev": "vite serve demo -c demo/vite.config.js",
+    "docs": "vite build demo -c demo/vite.config.js",
     "build": "vite build"
   },
   "devDependencies": {
