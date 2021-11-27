@@ -1,6 +1,6 @@
 {
   "name": "@palmcivet/unitext-tree-view",
-  "version": "0.2.3",
+  "version": "0.2.5",
   "description": "a tree-view component that imitate VSCode",
   "author": "Palm Civet <palmcivet_email@qq.com>",
   "license": "MIT",

@@ -1,6 +1,7 @@
 import Monitor from "./src/monitor";
 import ListViewDemo from "./src/list";
 import TreeViewDemo from "./src/tree";
+import SplitViewDemo from "./src/split";
 import "./src/theme.less";
 import "./style.less";
 
@@ -43,4 +44,5 @@ import "./style.less";
   Monitor(document.getElementById("monitor") as HTMLCanvasElement);
   ListViewDemo(context);
   TreeViewDemo(context);
+  SplitViewDemo(context);
 })(window);

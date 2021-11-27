@@ -9,3 +9,5 @@ export type { IListViewOptions } from "./ListView";
 export { TreeView } from "./TreeView";
 export type { ITreeViewOptions } from "./TreeView";
 export type { ITreeNodeFile, ITreeNodeFolder } from "./TreeView/treemodel";
+
+export { SplitView } from "./SplitView";

@@ -217,6 +217,7 @@ export class TreeView extends EventBus<EventType> {
     };
 
     for (const eventName in EVENT_MAP) {
+      // TODO 移除事件
       this.root.addEventListener(eventName, (event) => {
         const target = event.target as HTMLElement;
         if (target.nodeName.toUpperCase() === "LI") {
