@@ -1,14 +1,29 @@
 <template>
-  <ul class="navbar">
-    <li
-      v-for="(comp, index) in componentList"
-      :key="index"
-      :class="{ active: comp === activeComponent }"
-      @click="activeComponent = comp"
-    >
-      {{ comp }}
-    </li>
-  </ul>
+  <div class="navbar">
+    <div class="head">
+      <div class="title">
+        UniText
+        <br />
+        Tree View
+        <br />
+        <span class="version">v{{ pkg.version }}</span>
+      </div>
+      <a target="_blank" :href="pkg.homepage" title="Home Page">Home Page</a>
+      <a target="_blank" :href="pkg.repository" title="GitHub">GitHub</a>
+      <a target="_blank" href="//www.npmjs.com/package/@palmcivet/unitext-tree-view" title="NPM">NPM</a>
+    </div>
+
+    <ul>
+      <li
+        v-for="(comp, index) in componentList"
+        :key="index"
+        :class="{ active: comp === activeComponent }"
+        @click="activeComponent = comp"
+      >
+        {{ comp }}
+      </li>
+    </ul>
+  </div>
 
   <div class="container">
     <component :is="activeComponent" />
@@ -23,8 +38,8 @@ import ListViewDemo from "./components/ListViewDemo.vue";
 import TreeViewDemo from "./components/TreeViewDemo.vue";
 import SplitViewDemo from "./components/SplitViewDemo.vue";
 import ScrollbarDemo from "./components/ScrollbarDemo.vue";
-
 import Monitor from "./monitor";
+import pkg from "../../package.json";
 
 export default defineComponent({
   name: "App",
@@ -49,6 +64,7 @@ export default defineComponent({
       activeComponent,
       componentList,
       monitorRef,
+      pkg,
     };
   },
 });
@@ -95,6 +111,29 @@ body {
     width: 220px;
     padding: 0 10px;
     box-sizing: border-box;
+
+    .head {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+      padding-bottom: 80px;
+
+      .title {
+        font-weight: bolder;
+        font-size: 1.4em;
+        margin-bottom: 1em;
+      }
+
+      .version {
+        font-weight: normal;
+        font-size: 0.8em;
+      }
+
+      a {
+        width: fit-content;
+      }
+    }
 
     li {
       height: 1em;
