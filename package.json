@@ -12,7 +12,7 @@
   "types": "dist/index.d.ts",
   "repository": "https://github.com/palmcivet/unitext-tree-view.git",
   "bugs": "https://github.com/palmcivet/unitext-tree-view/issues",
-  "homepage": "https://github.com/palmcivet/unitext-tree-view",
+  "homepage": "https://palmcivet.github.io/unitext-tree-view",
   "keywords": [
     "UniText",
     "TreeView",
