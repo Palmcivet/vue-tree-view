@@ -23,4 +23,5 @@ example
 .babelrc.js
 .commitlint.config
 .commitlint.config.js
+vite.config.js
 tsconfig.*.json

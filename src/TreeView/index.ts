@@ -1,6 +1,6 @@
 import { ListView, IListViewOptions } from "../ListView";
 import { TreeNodeFile, TreeNodeFolder, ITreeNodeFolder } from "./treemodel";
-import { InputBox } from "./inputBox";
+import { InputBox } from "./inputbox";
 import { EventBus } from "../EventBus";
 import { prefix } from "../config";
 import "./index.less";
