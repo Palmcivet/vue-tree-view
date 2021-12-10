@@ -39,7 +39,7 @@ export default defineComponent({
     };
 
     onMounted(async () => {
-      ListData.value = await (await fetch("/data/list.json")).json();
+      ListData.value = await (await fetch(`${import.meta.env.BASE_URL}data/list.json`)).json();
 
       ListViewInstance.value = new ListView<string>(listviewRef.value!, {
         itemHeight: 24,

@@ -40,13 +40,13 @@ export default defineComponent({
     };
 
     onMounted(async () => {
-      TreeData.value = await (await fetch("data/tree-level-1.json")).json();
+      TreeData.value = await (await fetch(`${import.meta.env.BASE_URL}data/tree-level-1.json`)).json();
 
       TreeViewInstance.value = new TreeView(
         treeviewRef.value!,
         {
           fetchHandler: async () => {
-            return await (await fetch("data/tree-level-1.json")).json();
+            return await (await fetch(`${import.meta.env.BASE_URL}data/tree-level-1.json`)).json();
           },
         },
         TreeData.value

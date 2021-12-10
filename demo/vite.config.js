@@ -8,6 +8,9 @@ export default defineConfig({
   base: `/${homepage[homepage.length - 1]}/`,
   server: {
     port: 30000,
+    fs: {
+      allow: [".."],
+    },
   },
   plugins: [vue()],
 });

@@ -159,7 +159,7 @@ export default defineComponent({
 
 .refs {
   width: 100%;
-  height: 70vh;
+  height: 70%;
   background: #2c3e50;
 }
 

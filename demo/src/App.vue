@@ -86,7 +86,7 @@ body {
 
 .refs {
   width: 250px;
-  height: 70vh;
+  height: 80%;
   background: #2c3e50;
   color: #bfbfbf;
 }
@@ -106,6 +106,11 @@ body {
   align-items: center;
   width: 100%;
   height: 100vh;
+
+  @media screen and (max-width: 1024px) {
+    min-width: 1024px;
+    min-height: 768px;
+  }
 
   .navbar {
     width: 220px;
@@ -161,7 +166,7 @@ body {
     box-sizing: border-box;
     border: 2px solid #165dff;
     height: calc(100% - 10px * 2);
-    width: calc(100vw - 220px);
+    width: calc(100% - 220px);
     margin: 0 10px;
 
     .demo {
