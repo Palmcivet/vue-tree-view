@@ -1,9 +1,8 @@
-import { Sash } from "./Sash";
-import { View } from "./View";
-import { EOrientation, EPriority, IViewOptions } from "./interface";
-import { EventBus } from "../EventBus";
+import { Sash } from "./sash";
+import { View } from "./view";
+import { EOrientation, EPriority, IViewOptions } from "./type";
+import { EventBus } from "../event-bus";
 import { prefix } from "../config";
-import "./index.less";
 
 const CLASS_NAME = {
   Container: `${prefix}-splitview`,

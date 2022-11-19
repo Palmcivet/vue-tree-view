@@ -1,39 +1,37 @@
 import { prefix } from "../config";
-import { EOrientation, EPriority, IView } from "./interface";
+import { EOrientation } from "./type";
 
 const CLASS_NAME = {
-  View: `${prefix}-view`,
+  Sash: `${prefix}-sash`,
 };
 
-export class View {
-  public readonly minimumSize: number;
-
-  public readonly maximumSize: number;
-
-  public readonly priority: EPriority;
+export class Sash {
+  private readonly root: HTMLElement;
 
   private readonly element: HTMLElement;
 
-  private readonly orientation: EOrientation;
-
-  private _size!: number;
+  private readonly orientation: EOrientation = EOrientation.VERTICAL;
 
   private _visible: boolean = true;
 
-  constructor(view: IView) {
-    this.element = view.element;
-    this.element.className = CLASS_NAME.View;
-    this.priority = view.priority;
-    this.minimumSize = view.minimumSize;
-    this.maximumSize = view.maximumSize;
-    this.orientation = view.orientation;
+  private _position: number = 0;
 
-    this.setSize(view.initialSize);
+  private _size: number = 0;
+
+  constructor(root: HTMLElement, orientation: EOrientation) {
+    this.element = document.createElement("div");
+    this.element.className = CLASS_NAME.Sash;
+    this.root = root;
+    this.root.appendChild(this.element);
+    this.orientation = orientation;
+    this.setSize(2);
   }
 
-  public dispose(): void {}
+  public dispose(): void {
+    this.root.removeChild(this.element);
+  }
 
-  public getElement() {
+  public getElement(): HTMLElement {
     return this.element;
   }
 
@@ -51,7 +49,7 @@ export class View {
 
   public setSize(size: number): void {
     this._size = size;
-    if (this.orientation === EOrientation.VERTICAL) {
+    if (this.orientation == EOrientation.VERTICAL) {
       this.element.style.width = `${size}px`;
       this.element.style.height = "100%";
     } else {
@@ -61,10 +59,16 @@ export class View {
   }
 
   public layout(position: number): void {
+    this._position = position;
+    // TODO 居中
     if (this.orientation == EOrientation.VERTICAL) {
       this.element.style.left = `${position}px`;
     } else {
       this.element.style.top = `${position}px`;
     }
+  }
+
+  public getPosition(): number {
+    return this._position;
   }
 }

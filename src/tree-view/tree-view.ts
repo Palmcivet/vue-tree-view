@@ -1,9 +1,12 @@
-import { ListView, IListViewOptions } from "../ListView";
-import { TreeNodeFile, TreeNodeFolder, ITreeNodeFolder } from "./treemodel";
-import { InputBox } from "./inputbox";
-import { EventBus } from "../EventBus";
+import { ListView } from "../list-view";
+import { EventBus } from "../event-bus";
 import { prefix } from "../config";
+import { InputBox } from "./input-box";
+import { TreeNodeFile, TreeNodeFolder } from "./tree-model";
+import { ITreeNodeFolder, ITreeViewOptions } from "./type";
 import "./index.less";
+
+type EventType = "click" | "contextmenu" | "u-create" | "u-open" | "u-rename" | "u-delete" | "u-move";
 
 type TreeNode = TreeNodeFile | TreeNodeFolder;
 
@@ -23,23 +26,6 @@ const CLASS_NAME = {
   DragSource: `${prefix}-tree__drag-source`,
   DragTarget: `${prefix}-tree__drag-target`,
 };
-
-export type EventType = "click" | "contextmenu" | "u-create" | "u-open" | "u-rename" | "u-delete" | "u-move";
-
-export interface ITreeViewOptions<T> {
-  /**
-   * @description 展示缩进线
-   */
-  showIndent: boolean;
-  /**
-   * @description 透传 ListView 的配置项
-   */
-  listView: Partial<IListViewOptions<T>>;
-  /**
-   * @description 获取文件
-   */
-  fetchHandler(...event: Array<any>): Promise<ITreeNodeFolder>;
-}
 
 export class TreeView extends EventBus<EventType> {
   /**
@@ -289,10 +275,10 @@ export class TreeView extends EventBus<EventType> {
   private onCreateTreeNodeElement(): HTMLElement {
     const element = document.createElement("li");
     element.innerHTML = `
-<div class="${prefix}-indent"></div>
-<i class="${prefix}-twist"></i>
-<i class="${prefix}-icon"></i>
-<div class="${prefix}-label"></div>`;
+  <div class="${prefix}-indent"></div>
+  <i class="${prefix}-twist"></i>
+  <i class="${prefix}-icon"></i>
+  <div class="${prefix}-label"></div>`;
     return element;
   }
 
